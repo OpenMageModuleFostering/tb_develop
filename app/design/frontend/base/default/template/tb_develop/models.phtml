@@ -16,10 +16,10 @@ if(is_array($queries)){
 ?>
 <div id="tabs_models_container">
     <ul class="tabs_models_menu">
-        <li class="toolbar_menu_current"><a href="#tab_models_1">Models</a></li>
-        <li><a href="#tab_models_2">Collections</a></li>
-        <li><a href="#tab_models_3">Observers</a></li>
-        <li><a href="#tab_models_4">SQL Profiler</a></li>
+        <li class="toolbar_menu_current"><a id="toolbar_link_models_1" href="javascript:void(0);" onClick="TB_Tab('models', 1);">Models</a></li>
+        <li><a id="toolbar_link_models_2" href="javascript:void(0);" onClick="TB_Tab('models', 2);">Collections</a></li>
+        <li><a id="toolbar_link_models_3" href="javascript:void(0);" onClick="TB_Tab('models', 3);">Observers</a></li>
+        <li><a id="toolbar_link_models_4" href="javascript:void(0);" onClick="TB_Tab('models', 4);">SQL Profiler</a></li>
     </ul>
     <div class="tab_models">
         <div id="tab_models_1" class="tab_models_content">               

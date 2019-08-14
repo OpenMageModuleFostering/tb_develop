@@ -12,19 +12,7 @@
             </action>
             <action method="addItem">
                 <type>js</type>
-                <name>tb_develop/prototype.functions.js</name>
-            </action>     
-            <action method="removeItem" ifconfig="develop/options/jslib">
-                <type>js</type>
-                <name>tb_develop/prototype.functions.js</name>
-            </action>             
-            <action method="addItem" ifconfig="develop/options/jslib">
-                <type>js</type>
-                <name>tb_develop/jquery-2.1.1.min.js</name>
-            </action>
-            <action method="addItem" ifconfig="develop/options/jslib">
-                <type>js</type>
-                <name>tb_develop/jquery.functions.js</name>
+                <name>tb_develop/toolbar.js</name>
             </action>                                  
         </reference>        
     </default>

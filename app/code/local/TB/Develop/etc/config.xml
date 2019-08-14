@@ -2,7 +2,7 @@
 <config>
     <modules>
         <TB_Develop>
-            <version>1.0.1</version>
+            <version>1.0.2</version>
         </TB_Develop>
     </modules>
     <frontend>
@@ -122,7 +122,6 @@
             <options>
                 <enable>1</enable>
                 <allowed_ips>127.0.0.1</allowed_ips>
-                <jslib>0</jslib>
             </options>
         </develop>
     </default>

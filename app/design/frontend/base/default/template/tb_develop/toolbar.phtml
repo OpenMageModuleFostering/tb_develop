@@ -11,7 +11,7 @@ $sections = $this->getSections();
                 $first = true;
                 foreach ($sections as $section){ 
                 ?>
-                <li><a class="toolbar_menu_item <?php if ($first){ $first = false; echo 'toolbar_active'; } ?>" href="#<?php echo $section['id'] ?>"><?php echo $section['title'] ?></a></li>
+                <li><a id="toolbar_menu_<?php echo $section['id'] ?>" class="toolbar_menu_item <?php if ($first){ $first = false; echo 'toolbar_active'; } ?>" href="javascript:void(0);" onClick="TB_Menu('<?php echo $section['id'] ?>');"><?php echo $section['title'] ?></a></li>
                 <?php } ?>
             </ul>  
         </div>        

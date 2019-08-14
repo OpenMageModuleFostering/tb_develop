@@ -7,8 +7,8 @@ $totalLayoutBlocks = count($layoutBlocks);
 ?>
 <div id="tabs_blocks_container">
     <ul class="tabs_blocks_menu">
-        <li class="toolbar_menu_current"><a href="#tab_blocks_1">Rendered Blocks</a></li>
-        <li><a href="#tab_blocks_2">All Blocks</a></li>
+        <li class="toolbar_menu_current"><a id="toolbar_link_blocks_1" href="javascript:void(0);" onClick="TB_Tab('blocks', 1);">Rendered Blocks</a></li>
+        <li><a id="toolbar_link_blocks_2" href="javascript:void(0);" onClick="TB_Tab('blocks', 2);">All Blocks</a></li>
     </ul>
     <div class="tab_blocks">
         <div id="tab_blocks_1" class="tab_blocks_content">

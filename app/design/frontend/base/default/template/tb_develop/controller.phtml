@@ -6,10 +6,10 @@ $session = Mage::getSingleton('core/session');
 ?>
 <div id="tabs_controller_container">
     <ul class="tabs_controller_menu">
-        <li class="toolbar_menu_current"><a href="#tab_controller_1">Controller</a></li>
-        <li><a href="#tab_controller_2">GET / POST</a></li>
-        <li><a href="#tab_controller_3">Session</a></li>
-        <li><a href="#tab_controller_4">Cookies</a></li>
+        <li class="toolbar_menu_current"><a id="toolbar_link_controller_1" href="javascript:void(0);" onClick="TB_Tab('controller', 1);">Controller</a></li>
+        <li><a id="toolbar_link_controller_2" href="javascript:void(0);" onClick="TB_Tab('controller', 2);">GET / POST</a></li>
+        <li><a id="toolbar_link_controller_3" href="javascript:void(0);" onClick="TB_Tab('controller', 3);">Session</a></li>
+        <li><a id="toolbar_link_controller_4" href="javascript:void(0);" onClick="TB_Tab('controller', 4);">Cookies</a></li>
     </ul>
     <div class="tab_controller">
         <div id="tab_controller_1" class="tab_controller_content">

@@ -5,8 +5,8 @@ $layoutHandles = Mage::helper('develop')->getLayouts();
 ?>
 <div id="tabs_layouts_container">
     <ul class="tabs_layouts_menu">
-        <li class="toolbar_menu_current"><a href="#tab_layouts_1">Layout Updates</a></li>
-        <li><a href="#tab_layouts_2">Result Layout</a></li>
+        <li class="toolbar_menu_current"><a id="toolbar_link_layouts_1" href="javascript:void(0);" onClick="TB_Tab('layouts', 1);">Layout Updates</a></li>
+        <li><a id="toolbar_link_layouts_2" href="javascript:void(0);" onClick="TB_Tab('layouts', 2);">Result Layout</a></li>
     </ul>
     <div class="tab_layouts">
         <div id="tab_layouts_1" class="tab_layouts_content">
