@@ -5,6 +5,10 @@ $translateInlineEnabled = (bool) Mage::getStoreConfig('dev/translate_inline/acti
 $logEnabled = (bool) Mage::getStoreConfig('dev/log/active');
 $systemLog = Mage::helper('develop')->readSystemLog();
 $exceptionLog = Mage::helper('develop')->readExceptionLog();
+$backtrace = Mage::helper('develop')->getBacktrace();
+$backtraceTotal = count($backtrace);
+$timers = Mage::helper('develop')->getTimers();
+$timersTotal = count($timers);
 ?>
 <div id="tabs_dashboard_container">
     <ul class="tabs_dashboard_menu">
@@ -13,6 +17,8 @@ $exceptionLog = Mage::helper('develop')->readExceptionLog();
         <li><a id="toolbar_link_dashboard_3" href="javascript:void(0);" onClick="TB_Tab('dashboard', 3);">PHP Info</a></li> 
         <li><a id="toolbar_link_dashboard_4" href="javascript:void(0);" onClick="TB_Tab('dashboard', 4);">System Log</a></li> 
         <li><a id="toolbar_link_dashboard_5" href="javascript:void(0);" onClick="TB_Tab('dashboard', 5);">Exceptions Log</a></li> 
+        <li><a id="toolbar_link_dashboard_6" href="javascript:void(0);" onClick="TB_Tab('dashboard', 6);">Backtrace</a></li>
+        <li><a id="toolbar_link_dashboard_7" href="javascript:void(0);" onClick="TB_Tab('dashboard', 7);">Code Profiler</a></li> 
     </ul>
     <div class="tab_dashboard">
         <div id="tab_dashboard_1" class="tab_dashboard_content">
@@ -371,7 +377,129 @@ $exceptionLog = Mage::helper('develop')->readExceptionLog();
                 <?php
             }
             ?>
-        </div>         
+        </div>  
+        <div id="tab_dashboard_6" class="tab_dashboard_content" style="display: none;">
+            <h4 class="toolbar_paragraph">Backtrace (<?php echo $backtraceTotal; ?> calls)</h4> 
+                <table class="toolbar_table toolbar_table_wrap">
+                    <col width="3%" />
+                    <col width="25%" />
+                    <col width="25%" />
+                    <col width="3%" />
+                    <col width="19%" />
+                    <col width="20%" />
+                    <col width="5%" />
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Method Call</th>
+                            <th>File</th>
+                            <th>Line</th>
+                            <th>Details</th>                            
+                            <th>Arguments</th>
+                            <th>Call Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $num = 1;
+                        foreach ($backtrace as $row => $line) {   
+                            ?>
+                            <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>"> 
+                                <td><?php echo $num; ?></td>
+                                <td class="toolbar_table_left">
+                                <?php echo $line['method_name']; ?>
+                                </td>
+                                <td class="toolbar_table_left">
+                                <?php echo htmlentities($line['file']); ?>
+                                </td>
+                                <td>
+                                <?php echo $line['line']; ?>
+                                </td>
+                                <td class="toolbar_table_left">
+                                <?php  
+                                     if($line['object'] != ''){
+                                         echo '<span class="hljs-attribute">Object:</span> <span class="hljs-string">' . $line['object'] . '</span><br/>';
+                                     }
+                                     if($line['class'] != ''){
+                                         echo '<span class="hljs-attribute">Class:</span> <span class="hljs-string">' . $line['class'] . '</span><br/>';
+                                     }
+                                     if($line['function'] != ''){
+                                         echo '<span class="hljs-attribute">Function:</span> <span class="hljs-string">' . $line['function'] . '</span><br/>';
+                                     }
+                                ?>
+                                </td>
+                                <td class="toolbar_table_left">
+                                <?php 
+                                   foreach($line['args'] as $k => $v){                                       
+                                       echo '<span class="hljs-attribute">' . $k . '</span> => <span class="hljs-string">' . $v . '</span><br/>';
+                                   } 
+                                ?>
+                                </td>
+                                <td>
+                                <?php echo htmlentities($line['call_type']); ?>
+                                </td>
+                            </tr>     
+                            <?php
+                            $num++;
+                        }
+                        ?>
+                    </tbody>
+                </table>
+        </div> 
+        <div id="tab_dashboard_7" class="tab_dashboard_content" style="display: none;">
+            <h4 class="toolbar_paragraph">Code Profiler (<?php echo $timersTotal; ?> profiled items)</h4> 
+                <table class="toolbar_table toolbar_table_wrap">
+                    <col width="3%" />
+                    <col width="55%" />
+                    <col width="7%" />
+                    <col width="5%" />
+                    <col width="15%" />
+                    <col width="15%" />
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Code Profiler</th>
+                            <th>Time, sec</th>
+                            <th>Count</th>
+                            <th>Emalloc</th>                            
+                            <th>RealMem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $num = 1;
+                        foreach ($timers as $row => $line) {   
+                            ?>
+                            <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>"> 
+                                <td><?php echo $num; ?></td>
+                                <td class="toolbar_table_left">
+                                <?php echo $line['timer'] ?>
+                                </td>
+                                <td>
+                                <?php echo $line['sum']; ?>
+                                </td>
+                                <td>
+                                <?php echo $line['count']; ?>
+                                </td>
+                                <td>
+                                    <span class="hljs-attribute">
+                                    <?php echo $line['realmem']; ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="hljs-string">
+                                    <?php echo $line['emalloc']; ?>
+                                    </span>
+                                </td>
+
+                            </tr>     
+                            <?php
+                            $num++;
+                        }
+                        ?>
+                    </tbody>
+                </table>
+        </div> 
     </div>
 </div>
 <div class="toolbar_clear"></div>

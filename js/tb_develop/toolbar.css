@@ -341,7 +341,7 @@ table.toolbar_table tbody tr td.toolbar_table_left{
     float: right;
 }
 .toolbar_hints_block{
-    margin: 0px 40px 0px 0px;
+    margin: 0px 20px 0px 0px;
 }
 .toolbar_hint_border{
     position:relative; 

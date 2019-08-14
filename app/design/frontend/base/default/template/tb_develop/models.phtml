@@ -13,6 +13,8 @@ if(is_array($queries)){
         $totalTime += sprintf("%.4f", $query->getElapsedSecs());
     }
 }
+$jobs = Mage::helper('develop')->getCronJobs();
+$jobsTotal = count($jobs);
 ?>
 <div id="tabs_models_container">
     <ul class="tabs_models_menu">
@@ -20,6 +22,7 @@ if(is_array($queries)){
         <li><a id="toolbar_link_models_2" href="javascript:void(0);" onClick="TB_Tab('models', 2);">Collections</a></li>
         <li><a id="toolbar_link_models_3" href="javascript:void(0);" onClick="TB_Tab('models', 3);">Observers</a></li>
         <li><a id="toolbar_link_models_4" href="javascript:void(0);" onClick="TB_Tab('models', 4);">SQL Profiler</a></li>
+        <li><a id="toolbar_link_models_5" href="javascript:void(0);" onClick="TB_Tab('models', 5);">Cron Jobs</a></li>
     </ul>
     <div class="tab_models">
         <div id="tab_models_1" class="tab_models_content">               
@@ -205,6 +208,54 @@ if(is_array($queries)){
                 <span class="hljs-string"><code>&lt;profiler>1&lt;/profiler></code></span> node inside <span class="hljs-string"><code>&lt;connection></code></span> 
                 node in your <span class="hljs-attribute">app/etc/local.xml</span> file.             
             <?php } ?> 
+        </div>
+        <div id="tab_models_5" class="tab_models_content"  style="display: none;">
+            <h4 class="toolbar_paragraph">Cron Jobs (<?php echo $jobsTotal; ?> items)</h4>
+            <table class="toolbar_table toolbar_table_wrap">
+                <col width="3%" />
+                <col width="30%" />
+                <col width="60%" />
+                <col width="7%" />
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Model::Method Call</th>
+                        <th>Schedule</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $row = 1;
+                    foreach ($jobs as $job) {
+                        ?>
+                        <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">
+                            <td>
+                                <?php echo $row; ?>
+                            </td>
+                            <td class="toolbar_table_left">
+                                <?php echo $job['code']; ?>
+                            </td>				
+                            <td class="toolbar_table_left">	
+                                <?php 
+                                $parts = $job['parts'];
+                                if(count($parts) == 2){
+                                   echo '<span class="hljs-attribute">' . $parts[0] . '</span>' . $job['sign'] . '<span class="hljs-string">' . $parts[1] . '()</span>';
+                                }else{
+                                   echo $job['model'];
+                                }
+                                ?>                   
+                            </td>
+                            <td>
+                               <span class="hljs-string"><?php echo $job['expr']; ?></span>
+                            </td>                                
+                        </tr>
+                        <?php
+                        $row++;
+                    }
+                    ?>
+                </tbody>
+            </table>            
         </div>
     </div>
 </div>

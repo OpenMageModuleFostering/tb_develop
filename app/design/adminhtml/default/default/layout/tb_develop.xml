@@ -8,10 +8,6 @@
             </action> 
             <action method="addItem">
                 <type>js</type>
-                <name>tb_develop/highlight.pack.js</name>
-            </action>
-            <action method="addItem">
-                <type>js</type>
                 <name>tb_develop/toolbar.js</name>
             </action>                                  
         </reference>        

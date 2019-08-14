@@ -2,7 +2,7 @@
 <config>
     <modules>
         <TB_Develop>
-            <version>1.0.2</version>
+            <version>1.0.3</version>
         </TB_Develop>
     </modules>
     <frontend>
@@ -114,7 +114,16 @@
                         <method>onModelLoad</method>
                     </develop_observer>
                 </observers>
-            </model_load_after>           
+            </model_load_after>  
+            <resource_get_tablename>   
+                <observers>
+                    <develop_observer>
+                        <type>singleton</type>
+                        <class>develop/observer</class>
+                        <method>onFirstEvent</method>
+                    </develop_observer>
+                </observers> 
+            </resource_get_tablename>     
         </events>
     </global>
     <default>

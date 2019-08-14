@@ -187,14 +187,19 @@ class TB_Develop_Helper_Data extends Mage_Core_Helper_Abstract {
         return $data;
     }
 
-    public function getMemoryPeakUsage() {
-        $memory = memory_get_peak_usage(TRUE);
+    public function formatSize($data){
         $sizes = array("Bytes", "KB", "MB", "GB", "TB", "PB");
-        if ($memory == 0) {
+        if ($data == 0) {
             return 'n/a';
         } else {
-            return round($memory / pow(1024, ($i = floor(log($memory, 1024)))), 2) . ' ' . $sizes[$i];
+            return round($data / pow(1024, ($i = floor(log($data, 1024)))), 2) . ' ' . $sizes[$i];
         }
+    }
+    
+    public function getMemoryPeakUsage() {
+        $memory = memory_get_peak_usage(TRUE);
+        
+        return $this->formatSize($memory);
     }
 
     public function getScriptDuration() {
@@ -286,6 +291,167 @@ class TB_Develop_Helper_Data extends Mage_Core_Helper_Abstract {
         $lines = $this->ReadFromEndByLine($filename, 100);
 
         return $lines;
+    }
+    
+    public function getBacktrace(){
+        $data = array();
+        $backtrace = debug_backtrace();
+        if(is_array($backtrace)){
+            $base_dir = Mage::getBaseDir('base') . DS;
+            foreach ($backtrace as $item){
+                if(isset($item['function'])){
+                    $function = $item['function'];
+                }else{
+                    $function = '';
+                }
+                if(isset($item['line'])){
+                    $line = $item['line'];
+                }else{
+                    $line = 0;
+                }
+                if(isset($item['file'])){
+                    $file = str_replace($base_dir, '', $item['file']);
+                }else{
+                    $file = '';
+                }
+                if(isset($item['class'])){
+                    $class = $item['class'];
+                }else{
+                    $class = '';
+                }
+                if(isset($item['object'])){
+                    $object = get_class($item['object']);
+                }else{
+                    $object = '';
+                }
+                $args = array();
+                if(isset($item['args'])){                    
+                    foreach ($item['args'] as $arg){
+                        if(is_object($arg)){
+                            $args[] = get_class($arg);
+                        }elseif(is_array($arg)){
+                            $args[] = var_export($arg, TRUE);
+                        }elseif(empty($arg)){
+                             $args[] = "&quot;";
+                        }else{
+                            $args[] = "&#39;" . $arg . "&#39;";
+                        }
+                    }
+                }
+                if(isset($item['type'])){
+                    $type = $item['type'];                    
+                    switch ($type) {
+                        case '->':
+                            $type_description = 'method';
+                            break;
+                        case '::':
+                            $type_description = 'static';
+                            break;
+                        default:
+                            $type_description = 'function';
+                            break;
+                    }
+                }else{
+                    $type = '';
+                    $type_description = 'function';
+                }
+                if (isset($item['class']) && isset($item['function'])) {
+                    $method_name = sprintf('<span class="hljs-attribute">%s</span>%s<span class="hljs-string">%s</span>(%s)', $class, isset($item['type']) ? $item['type'] : '->', $item['function'], join(', ', $args));
+                } else if (isset($item['function'])) {
+                    $method_name = sprintf('<span class="hljs-attribute">%s</span>(%s)', $item['function'], join(', ', $args));
+                } else{
+                    $method_name = '';
+                }
+
+                $data[] = array(
+                    'function' => $function,
+                    'line' => $line,
+                    'file' => $file,
+                    'class' => $class,
+                    'object' => $object,
+                    'call_type' => $type_description,
+                    'method_name' => $method_name,
+                    'args' => $args
+                );
+            }
+        }
+        
+        return array_reverse($data);
+    }
+    
+    public function getTimers(){
+        $result = array();
+        $timers = Varien_Profiler::getTimers();
+        Varien_Profiler::disable();
+        if(!is_array($timers)){
+            $timers = array();
+        }        
+        foreach($timers as $timer => $data){
+            $sum = number_format(Varien_Profiler::fetch($timer, 'sum'), 6);
+            $realmem = $this->formatSize($data['realmem']);
+            $emalloc = $this->formatSize($data['emalloc']);
+            $result[] = array(
+                'timer' => $timer,
+                'count' => $data['count'],
+                'sum' => $sum,
+                'realmem' => $realmem,
+                'emalloc' => $emalloc
+            );                        
+        }
+                
+        return $result;
+    }
+    
+    protected function collectJobs($config){
+        $data = array();
+        if ($config instanceof Mage_Core_Model_Config_Element) {
+            $jobs = $config->children();
+            foreach ($jobs as $jobCode => $jobConfig) {
+                $cronExpr = null;
+                if ($jobConfig->schedule->config_path) {
+                    $cronExpr = Mage::getStoreConfig((string)$jobConfig->schedule->config_path);
+                }
+                if (empty($cronExpr) && $jobConfig->schedule->cron_expr) {
+                    $cronExpr = (string)$jobConfig->schedule->cron_expr;
+                }
+                if (!$cronExpr) {
+                    continue;
+                }
+                $model = '';
+                $parts = array();
+                $sign = '';
+                if($jobConfig->run->model){
+                    $model = (string)$jobConfig->run->model;
+                    $sign = '::';
+                    $parts = explode($sign, $model);
+                    if(count($parts) == 1){
+                        $sign = '->';
+                        $parts = explode($sign, $model);
+                    } 
+                }
+                $data[] = array(
+                    'code' => $jobCode,
+                    'model' => $model,
+                    'parts' => $parts,
+                    'sign' => $sign,
+                    'expr' => $cronExpr
+                );                
+            }                        
+        }
+        
+        return $data;
+    }
+    
+    public function getCronJobs(){ 
+        $globalConfig = Mage::getConfig()->getNode('crontab/jobs');        
+        $customConfig = Mage::getConfig()->getNode('default/crontab/jobs');        
+        $jobs = $this->collectJobs($globalConfig);
+        $custom = $this->collectJobs($customConfig);
+        foreach($custom as $item){
+            array_push($jobs, $item);
+        }
+                
+        return $jobs;
     }
 
 }

@@ -282,4 +282,7 @@ HTML;
         $transport->setHtml($html);
     }
 
+    public function onFirstEvent(Varien_Event_Observer $observer){
+        Varien_Profiler::enable();
+    }
 }
