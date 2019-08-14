@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">      
+            <action method="addItem">
+                <type>js_css</type>
+                <name>tb_develop/toolbar.css</name>
+            </action>       
+            <action method="addItem">
+                <type>js</type>
+                <name>tb_develop/highlight.pack.js</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>tb_develop/prototype.functions.js</name>
+            </action>     
+            <action method="removeItem" ifconfig="develop/options/jslib">
+                <type>js</type>
+                <name>tb_develop/prototype.functions.js</name>
+            </action>             
+            <action method="addItem" ifconfig="develop/options/jslib">
+                <type>js</type>
+                <name>tb_develop/jquery-2.1.1.min.js</name>
+            </action>
+            <action method="addItem" ifconfig="develop/options/jslib">
+                <type>js</type>
+                <name>tb_develop/jquery.functions.js</name>
+            </action>                                  
+        </reference>    
+    </default>
+    <tb_develop>
+        <reference name="before_body_end">
+            <block type="develop/toolbar" name="develop_toolbar" template="tb_develop/toolbar.phtml">   
+                <block type="develop/dashboard" name="develop_dashboard_section" template="tb_develop/dashboard.phtml"/>                             
+                <block type="develop/layouts" name="develop_layouts_section" template="tb_develop/layouts.phtml"/>
+                <block type="develop/blocks" name="develop_blocks_section" template="tb_develop/blocks.phtml"/> 
+                <block type="develop/models" name="develop_models_section" template="tb_develop/models.phtml"/>
+                <block type="develop/controller" name="develop_controller_section" template="tb_develop/controller.phtml"/>                
+            </block>
+        </reference>
+    </tb_develop>
+</layout>   

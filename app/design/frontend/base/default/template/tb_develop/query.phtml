@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><?php echo $title ?></title>
+        <link href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); ?>tb_develop/toolbar.css" rel="stylesheet"/>   
+        <script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); ?>tb_develop/highlight.pack.js"></script>    
+        <script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); ?>tb_develop/jquery-2.1.1.min.js"></script>    
+        <script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); ?>tb_develop/jquery.functions.js"></script>    
+    </head>
+    <body class="toolbar_sql_body">
+        <div class="toolbar_sql_block">
+            <h3 class="toolbar_paragraph">Query</h3>
+            <div class="toolbar_table_syntax sql"><?php echo htmlspecialchars($query); ?></div>
+            <h3 class="toolbar_paragraph">Result</h3>
+            <table class="toolbar_table toolbar_sql_font">
+                <thead>
+                    <tr>
+                        <?php foreach ($columns as $column){ ?>
+                            <th><?php echo htmlspecialchars($column); ?></th>
+                        <?php } ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                    $idx = 1; 
+                    foreach ($rows as $row){ ?>
+                        <tr class="<?php echo $idx%2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">
+                            <?php foreach ($row as $key => $value){ ?>
+                                <td><?php echo htmlspecialchars($value) ?></td>
+                            <?php } ?>
+                        </tr>
+                        <?php
+                        $idx++;
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="toolbar_clear"></div>
+    </body>
+</html>

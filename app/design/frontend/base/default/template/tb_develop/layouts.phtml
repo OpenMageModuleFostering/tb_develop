@@ -1,0 +1,72 @@
+<?php
+$layout = Mage::getSingleton('core/layout');
+$totalHandles = count($layout->getUpdate()->getHandles());
+$layoutHandles = Mage::helper('develop')->getLayouts();
+?>
+<div id="tabs_layouts_container">
+    <ul class="tabs_layouts_menu">
+        <li class="toolbar_menu_current"><a href="#tab_layouts_1">Layout Updates</a></li>
+        <li><a href="#tab_layouts_2">Result Layout</a></li>
+    </ul>
+    <div class="tab_layouts">
+        <div id="tab_layouts_1" class="tab_layouts_content">
+            <p>
+            <h4 class="toolbar_paragraph">Layout Updates (<?php echo $totalHandles . " handles"; ?>)</h4>   
+            <table class="toolbar_table toolbar_table_wrap">
+                <col width="3%" />
+                <col width="15%" />
+                <col width="82%" />
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Handle</th>
+                        <th>Update Rules</th>
+                    </tr>
+                </thead>
+                <tbody> <?php
+                    $row = 1;
+                    foreach ($layoutHandles as $handle => $data) {
+                        if (is_array($data)) {
+                            foreach ($data as $key => $item) {
+                                ?>
+                                <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">                   
+                                    <td rowspan="2"><?php echo $row ?></td>        
+                                    <td rowspan="2"><?php echo $handle ?></td>            
+                                    <td class="toolbar_table_left">
+                                        <strong>File:</strong> <?php echo $item['file'] ?>                               
+                                    </td>
+                                </tr>
+                                <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">          
+                                    <td class="toolbar_table_left">
+                                        <div>
+                                            <pre><?php
+                                                $xml = Mage::helper('develop')->formatXmlString(trim($item['content']), true);
+                                                echo '<code class="toolbar_table_syntax xml">' . $xml . '</code>';
+                                                ?></pre>
+                                        </div> 
+                                    </td>
+                                </tr>    
+                                <?php
+                                $row++;
+                            }
+                        }
+                    }
+                    ?>
+                </tbody>
+            </table>        
+            </p>
+        </div>       
+        <div id="tab_layouts_2" class="tab_layouts_content" style="display: none;">
+            <p>
+            <h4 class="toolbar_paragraph">Result Layout</h4>    
+            <div>
+                <pre><?php
+                    $xml = Mage::helper('develop')->formatXmlString((string) $layout->getNode()->asXML(), true);
+                    echo '<code class="toolbar_table_syntax xml">' . $xml . '</code>';
+                    ?></pre>
+            </div>                
+            </p>
+        </div>     
+    </div>
+</div>
+<div class="toolbar_clear"></div>

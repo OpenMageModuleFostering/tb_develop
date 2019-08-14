@@ -1,0 +1,108 @@
+<?php
+$reneredBlocks = array();
+$blocks = $this->getBlocks();
+$layoutBlocks = $this->getLayoutBlocks();
+$totalBlocks = count($blocks);
+$totalLayoutBlocks = count($layoutBlocks);
+?>
+<div id="tabs_blocks_container">
+    <ul class="tabs_blocks_menu">
+        <li class="toolbar_menu_current"><a href="#tab_blocks_1">Rendered Blocks</a></li>
+        <li><a href="#tab_blocks_2">All Blocks</a></li>
+    </ul>
+    <div class="tab_blocks">
+        <div id="tab_blocks_1" class="tab_blocks_content">
+            <p>                            
+            <h4 class="toolbar_paragraph">Rendered Blocks (<?php echo $totalBlocks . " items"; ?>)</h4>   
+            <table class="toolbar_table toolbar_table_wrap">
+                <col width="3%" />
+                <col width="20%" />
+                <col width="22%" />
+                <col width="55%" />
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>Template</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $row = 1;
+                    foreach ($blocks as $block) {
+                        array_push($reneredBlocks, $block['layout_name']);
+                        ?>
+                        <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">	
+                            <td><?php echo $row ?></td>            		
+                            <td class="toolbar_table_left"><span class="hljs-attribute"><?php echo $block['layout_name'] ?></span></td>
+                            <td class="toolbar_table_left"><?php echo $block['class'] ?></td>
+                            <td class="toolbar_table_left">
+                                <?php
+                                if ($block['template']) {
+                                    echo '<span class="hljs-string">app/design/' . $block['template'] . '</span>';
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                        <?php
+                        $row++;
+                    }
+                    ?>
+                </tbody>
+            </table>
+            </p>
+        </div>
+        <div id="tab_blocks_2" class="tab_blocks_content" style="display: none;">
+            <p>
+            <h4 class="toolbar_paragraph">Layout Blocks (<?php echo $totalLayoutBlocks . " items"; ?>)</h4>   
+            <table class="toolbar_table toolbar_table_wrap">
+                <col width="3%" />
+                <col width="20%" />
+                <col width="20%" />
+                <col width="5%" />
+                <col width="52%" />
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>Rendered</th>
+                        <th>Template</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $row = 1;
+                    foreach ($layoutBlocks as $block) {
+                        ?>
+                        <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">	
+                            <td><?php echo $row ?></td>
+                            <td class="toolbar_table_left"><span class="hljs-attribute"><?php echo $block['layout_name'] ?></span></td>
+                            <td class="toolbar_table_left"><?php echo $block['class'] ?></td>
+                            <td>
+                                <?php if (in_array($block['layout_name'], $reneredBlocks)) { ?> 
+                                    <span class="color_yes">Yes</span>
+                                <?php } else { ?>
+                                    <span class="color_no">No</span>
+                                <?php } ?>
+                            </td>
+                            <td class="toolbar_table_left">
+                                <?php
+                                if ($block['template']) {
+                                    echo '<span class="hljs-string">app/design/' . $block['template'] . '</span>';
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                        <?php
+                        $row++;
+                    }
+                    ?>
+                </tbody>
+            </table>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="toolbar_clear"></div>

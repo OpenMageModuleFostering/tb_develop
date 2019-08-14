@@ -1,0 +1,228 @@
+<?php
+$controller = Mage::registry('controller');
+$request = $controller->getRequest();
+$cookies = $_COOKIE;
+$session = Mage::getSingleton('core/session');
+?>
+<div id="tabs_controller_container">
+    <ul class="tabs_controller_menu">
+        <li class="toolbar_menu_current"><a href="#tab_controller_1">Controller</a></li>
+        <li><a href="#tab_controller_2">GET / POST</a></li>
+        <li><a href="#tab_controller_3">Session</a></li>
+        <li><a href="#tab_controller_4">Cookies</a></li>
+    </ul>
+    <div class="tab_controller">
+        <div id="tab_controller_1" class="tab_controller_content">
+            <p>                            
+            <h4 class="toolbar_paragraph">Controller Information</h4>
+            <table class="toolbar_table toolbar_table_wrap">
+                <col width="20%" />
+                <col width="80%" />
+                <thead>
+                    <tr>
+                        <th>Param</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="toolbar_table_odd">
+                        <td class="toolbar_table_left"><span class="hljs-attribute">Controller</span></td>
+                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo $request->getControllerModule() ?></span></td>
+                    </tr>
+                    <tr class="toolbar_table_even">
+                        <td class="toolbar_table_left"><span class="hljs-attribute">Method</span></td>
+                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo $request->getActionName() . 'Action' ?></span></td>
+                    </tr>
+                    <tr class="toolbar_table_odd">
+                        <td class="toolbar_table_left"><span class="hljs-attribute">Route Name</span></td>
+                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo $request->getRouteName() ?></span></td>
+                    </tr>
+                    <tr class="toolbar_table_even">
+                        <td class="toolbar_table_left"><span class="hljs-attribute">Request Path</span></td>
+                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo $request->getPathInfo() ?></span></td>
+                    </tr>
+                    <tr class="toolbar_table_odd">
+                        <td class="toolbar_table_left"><span class="hljs-attribute">Current URL</span></td>
+                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo Mage::helper('core/url')->getCurrentUrl() ?></span></td>
+                    </tr>
+                    <tr class="toolbar_table_even">
+                        <td class="toolbar_table_left"><span class="hljs-attribute">File Path</span></td>
+                        <td class="toolbar_table_left">
+                            <span class="hljs-string"><?php echo Mage::getModuleDir('controllers', $request->getControllerModule()) . '/' . ucfirst($request->getControllerName()) . 'Controller.php' ?></span>
+                        </td>
+                    <tr class="toolbar_table_odd">
+                        <td class="toolbar_table_left"><span class="hljs-attribute">Module Name</span></td>
+                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo $request->getModuleName() ?></span></td>
+                    </tr>
+                    <tr class="toolbar_table_even">
+                        <td class="toolbar_table_left"><span class="hljs-attribute">Controller Name</span></td>
+                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo $request->getControllerName() ?></span></td>
+                    </tr>
+                    <tr class="toolbar_table_odd">
+                        <td class="toolbar_table_left"><span class="hljs-attribute">Action Name</span></td>
+                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo $request->getActionName() ?></span></td>
+                    </tr>
+                    <tr class="toolbar_table_even">
+                        <td class="toolbar_table_left"><span class="hljs-attribute">Store Id</span></td>
+                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo Mage::app()->getStore()->getStoreId(); ?></span></td>
+                    </tr>
+                    <tr class="toolbar_table_odd">
+                        <td class="toolbar_table_left"><span class="hljs-attribute">Website Id</span></td>
+                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo Mage::app()->getStore()->getWebsiteId(); ?></span></td>
+                    </tr>
+                </tbody>
+            </table>   
+            </p>
+        </div>
+        <div id="tab_controller_2" class="tab_controller_content" style="display: none;">
+            <p>
+            <h4 class="toolbar_paragraph">GET Variables</h4>
+
+            <?php if ($_GET) { ?>
+                <table class="toolbar_table toolbar_table_wrap">
+                    <col width="20%" />
+                    <col width="80%" />
+                    <thead>
+                        <tr>
+                            <th>Param</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $row = 1;
+                        foreach ($_GET as $key => $value) {
+                            ?>
+                            <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">		
+                                <td class="toolbar_table_left"><span class="hljs-attribute"><?php echo htmlspecialchars($key) ?></span></td>
+                                <td class="toolbar_table_left"><span class="hljs-string"><?php echo htmlspecialchars($value) ?></span></td>
+                            </tr>
+                            <?php
+                            $row++;
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            <?php } else { ?>
+                <p>No GET data</p>
+            <?php } ?>
+            </p>  
+            <p>
+            <h4 class="toolbar_paragraph">POST Variables</h4>
+            <?php if ($_POST) { ?>
+                <table class="toolbar_table toolbar_table_wrap">
+                    <col width="20%" />
+                    <col width="80%" />
+                    <thead>
+                        <tr>
+                            <th>Param</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $row = 1;
+                        foreach ($_POST as $key => $value) {
+                            ?>
+                            <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">			
+                                <td class="toolbar_table_left"><span class="hljs-attribute"><?php echo htmlspecialchars($key) ?></span></td>
+                                <td class="toolbar_table_left"><span class="hljs-string"><?php echo htmlspecialchars($value) ?></span></td>
+                            </tr>
+                            <?php
+                            $row++;
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            <?php } else { ?>
+                <p>No POST data</p>
+            <?php } ?>             
+            </p>        
+        </div>
+        <div id="tab_controller_3" class="tab_controller_content" style="display: none;">
+            <p>
+            <h4 class="toolbar_paragraph">SESSION Information</h4>
+            <?php if ($session) { ?>
+                <table class="toolbar_table toolbar_table_wrap">
+                    <col width="20%" />
+                    <col width="80%" />
+                    <thead>
+                        <tr>
+                            <th>Param</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $row = 1;
+                        foreach ($session->getData() as $key => $value) {
+                            ?>
+                            <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">
+                                <td class="toolbar_table_left"><?php echo htmlspecialchars($key) ?></td>
+                                <td class="toolbar_table_left">
+                                    <?php
+                                    if (is_array($value)) {
+                                        foreach ($value as $k => $v) {
+                                            if (trim($k) != '') {
+                                                echo '<span class="hljs-attribute">' . $k . '</span> => <span class="hljs-string">' . $v . '</span><br/>';
+                                            }
+                                        }
+                                    } elseif (is_object($value)) {
+                                        echo '<span class="hljs-string">' . get_class($value) . '</span>';
+                                    } else {
+                                        echo '<span class="hljs-string">' . htmlspecialchars(trim($value)) . '</span>';
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
+                            <?php
+                            $row++;
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            <?php } else { ?>
+                <p>No SESSION data</p>
+            <?php } ?>   
+            </p>
+        </div>
+        <div id="tab_controller_4" class="tab_controller_content" style="display: none;">
+            <p>                    
+            <h4 class="toolbar_paragraph">COOKIES Information</h4>
+            <?php if ($cookies) { ?>
+                <table class="toolbar_table toolbar_table_wrap">
+                    <col width="20%" />
+                    <col width="80%" />
+                    <thead>
+                        <tr>
+                            <th>Param</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $row = 1;
+                        foreach ($cookies as $key => $value) {
+                            ?>
+                            <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">
+                                <td class="toolbar_table_left"><?php echo htmlspecialchars($key) ?></td>
+                                <td class="toolbar_table_left">
+                                    <div class="toolbar_table_syntax json">
+                                        <?php echo htmlspecialchars($value) ?>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php
+                            $row++;
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            <?php } else { ?>
+                <p>No COOKIE data</p>
+            <?php } ?>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="toolbar_clear"></div>

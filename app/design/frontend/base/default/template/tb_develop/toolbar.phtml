@@ -1,0 +1,39 @@
+<!-- Develop Toolbar Start -->
+<?php 
+$sections = $this->getSections(); 
+?>
+<div id="develop_toolbar_container">
+    <div id="develop_toolbar" style="display: none;">
+        <div id="toolbar_navigation">
+            <div class="toolbar_label"><a href="javascript:void(0);" id="toolbar_label_link" title="Toggle Toolbar"><span class="toolbar_icon"></span>Developer Toolbar</a></div>
+            <ul class="toolbar_navigation_menu">
+                <?php 
+                $first = true;
+                foreach ($sections as $section){ 
+                ?>
+                <li><a class="toolbar_menu_item <?php if ($first){ $first = false; echo 'toolbar_active'; } ?>" href="#<?php echo $section['id'] ?>"><?php echo $section['title'] ?></a></li>
+                <?php } ?>
+            </ul>  
+        </div>        
+        <div id="toolbar_content">
+            <?php 
+            $first = true;
+            foreach ($sections as $section){ 
+            ?>
+            <div id="<?php echo $section['id'] ?>" <?php if($first){ $first = false; echo 'class="toolbar_content_section toolbar_first_section"'; }else{ echo 'style="display: none;" class="toolbar_content_section"'; } ?>>
+                <div class="toolbar_section_title">
+                    <h2 class="toolbar_paragraph"><?php echo $section['title'] ?></h2>
+                </div>
+                <div class="toolbar_section_content">
+                    <?php echo $this->getChildHtml($section['template']) ?>
+                </div>
+            </div>
+            <?php } ?>   
+            <div class="toolbar_clear"></div>
+            <div id="toolbar_author">Powered by <a href="mailto:toxabes@gmail.com" title="toxabes@gmail.com">Toxa Bes</a></div>
+        </div>           
+    </div>
+    <div id="develop_toolbar_line"></div> 
+    <div id="develop_toolbar_btn"></div>
+</div>       
+<!-- Develop Toolbar End -->

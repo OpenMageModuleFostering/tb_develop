@@ -1,0 +1,211 @@
+<?php
+$queries = $this->getQueries();
+$models = $this->getModels();
+$collections = $this->getCollections();
+$events = $this->getEvents();
+$totalQueries = count($queries);
+$totalModels = count($models);
+$totalCollections = count($collections);
+$totalEvents = count($events);
+$totalTime = 0.0000;
+if(is_array($queries)){
+    foreach ($queries as $query){
+        $totalTime += sprintf("%.4f", $query->getElapsedSecs());
+    }
+}
+?>
+<div id="tabs_models_container">
+    <ul class="tabs_models_menu">
+        <li class="toolbar_menu_current"><a href="#tab_models_1">Models</a></li>
+        <li><a href="#tab_models_2">Collections</a></li>
+        <li><a href="#tab_models_3">Observers</a></li>
+        <li><a href="#tab_models_4">SQL Profiler</a></li>
+    </ul>
+    <div class="tab_models">
+        <div id="tab_models_1" class="tab_models_content">               
+            <h4 class="toolbar_paragraph">Models List (<?php echo $totalModels . " items"; ?>)</h4>
+            <table class="toolbar_table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Resource</th>
+                        <th>Class</th>
+                        <th>Calls</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $row = 1;
+                    foreach ($models as $model) {
+                        ?>
+                        <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">
+                            <td><?php echo $row; ?></td>
+                            <td class="toolbar_table_left"><span class="hljs-attribute"><?php echo $model['resource_name'] ?></span></td>
+                            <td class="toolbar_table_left"><span class="hljs-string"><?php echo $model['class'] ?></span></td>
+                            <td><?php echo $model['calls'] ?></td>
+                        </tr>
+                        <?php
+                        $row++;
+                    }
+                    ?>
+                </tbody>
+            </table>       
+        </div>
+        <div id="tab_models_2" class="tab_models_content" style="display: none;">
+            <h4 class="toolbar_paragraph">Collections List (<?php echo $totalCollections . " items"; ?>)</h4>
+            <table class="toolbar_table toolbar_table_wrap">
+                <col width="3%" />
+                <col width="5%" />
+                <col width="25%" />
+                <col width="60%" />
+                <col width="7%" />
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Type</th>
+                        <th>Class</th>
+                        <th>Query</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $row = 1;
+                    foreach ($collections as $collection) {
+                        $type = strtoupper(substr(trim($collection['sql']), 0, 6));
+                        ?>
+                        <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">
+                            <td><?php echo $row; ?></td>
+                            <td><span class="<?php echo ($collection['type'] == 'mysql' ? 'hljs-attribute' : 'hljs-string'); ?>"><?php echo $collection['type'] ?><span></td>
+                            <td class="toolbar_table_left"><?php echo $collection['class'] ?></td>
+                            <td class="toolbar_table_left">
+                                <div class="toolbar_table_syntax sql">
+                                    <?php echo $collection['sql'] ?>
+                                </div>
+                            </td>
+                            <td>
+                                <?php if ($type == 'SELECT'){ ?>
+                                    <a target="_blank" class="toolbar_link" href="<?php echo Mage::helper('develop')->getSimpleEnryptedSQLQuery($collection['sql'], 'execute') ?>">Execute</a>
+                                <?php } ?>
+                            </td>                            
+                        </tr>
+                        <?php
+                        $row++;
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div> 
+        <div id="tab_models_3" class="tab_models_content"  style="display: none;">
+                <h4 class="toolbar_paragraph">Observers (<?php echo $totalEvents  . " items"; ?>)</h4>
+                <table class="toolbar_table toolbar_table_wrap">
+                    <col width="3%" />
+                    <col width="25%" />
+                    <col width="5%" />
+                    <col width="20%" />
+                    <col width="20%" />
+                    <col width="20%" />
+                    <col width="7%" />
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Event</th> 
+                            <th>Scope</th>  
+                            <th>Key</th>                                                       
+                            <th>Class</th>
+                            <th>Method</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $row = 1;
+                        foreach ($events as $event) {
+                            ?>
+                            <tr class="<?php echo $row%2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">
+                                <td>
+                                    <?php echo $row; ?>
+                                </td>
+                                <td class="toolbar_table_left">
+                                    <?php echo $event['event']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $event['scope']; ?>
+                                </td>
+                                <td>	
+                                    <?php echo $event['key']; ?>                    
+                                </td>                                				                                
+                                <td class="toolbar_table_left">
+                                    <span class="hljs-attribute"><?php echo $event['class']; ?></span>
+                                </td>
+                                <td class="toolbar_table_left">
+                                   <span class="hljs-string"><?php echo $event['method']; ?></span>
+                                </td>
+                                <td>
+                                   <?php echo $event['type']; ?>
+                                </td>
+                            </tr>
+                            <?php
+                            $row++;
+                        }
+                        ?>
+                    </tbody>
+                </table>                
+        </div>
+        <div id="tab_models_4" class="tab_models_content"  style="display: none;">
+            <?php
+            if ($queries) {
+                ?>
+                <h4 class="toolbar_paragraph">Query List (<?php echo $totalQueries . " queries at " . $totalTime . " sec"; ?>)</h4>
+                <table class="toolbar_table toolbar_table_wrap">
+                    <col width="3%" />
+                    <col width="5%" />
+                    <col width="85%" />
+                    <col width="7%" />
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Time</th>
+                            <th>Query</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $row = 1;
+                        foreach ($queries as $query) {
+                            ?>
+                            <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">
+                                <td>
+                                    <?php echo $row; ?>
+                                </td>
+                                <td>
+                                    <?php echo sprintf("%.4f", $query->getElapsedSecs()) ?>&nbsp;s
+                                </td>				
+                                <td class="toolbar_table_left">	
+                                    <div class="toolbar_table_syntax sql"><?php echo trim($query->getQuery()); ?></div>                    
+                                    <?php if (count($query->getQueryParams())) { ?>
+                                        <strong>Params: </strong><?php echo implode(', ', $query->getQueryParams()); ?>
+                                    <?php } ?>                      
+                                </td>
+                                <td>
+                                    <?php if ($query->getQueryType() == Zend_Db_Profiler::SELECT) { ?>
+                                        <a target="_blank" class="toolbar_link" href="<?php echo Mage::helper('develop')->getEnryptedSQLQuery($query, 'execute') ?>">Execute</a>
+                                    <?php } ?>
+                                </td>                                
+                            </tr>
+                            <?php
+                            $row++;
+                        }
+                        ?>
+                    </tbody>
+                </table>  
+            <?php } else { ?>
+                Zend SQL Profiler is not enabled in Magento settings. Activate the Zend SQL Profiler by adding 
+                <span class="hljs-string"><code>&lt;profiler>1&lt;/profiler></code></span> node inside <span class="hljs-string"><code>&lt;connection></code></span> 
+                node in your <span class="hljs-attribute">app/etc/local.xml</span> file.             
+            <?php } ?> 
+        </div>
+    </div>
+</div>
+<div class="toolbar_clear"></div>

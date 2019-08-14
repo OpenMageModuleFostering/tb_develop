@@ -1,0 +1,377 @@
+<?php
+$templateHintsEnabled = (bool) Mage::getStoreConfig('dev/debug/template_hints');
+$extendedTemplateHintsEnabled = (bool) Mage::getStoreConfig('dev/tb_develop/extended_template_hints');
+$translateInlineEnabled = (bool) Mage::getStoreConfig('dev/translate_inline/active');
+$logEnabled = (bool) Mage::getStoreConfig('dev/log/active');
+$systemLog = Mage::helper('develop')->readSystemLog();
+$exceptionLog = Mage::helper('develop')->readExceptionLog();
+?>
+<div id="tabs_dashboard_container">
+    <ul class="tabs_dashboard_menu">
+        <li class="toolbar_menu_current"><a href="#tab_dashboard_1">Home</a></li>
+        <li><a href="#tab_dashboard_2">Modules</a></li>    
+        <li><a href="#tab_dashboard_3">PHP Info</a></li> 
+        <li><a href="#tab_dashboard_4">System Log</a></li> 
+        <li><a href="#tab_dashboard_5">Exceptions Log</a></li> 
+    </ul>
+    <div class="tab_dashboard">
+        <div id="tab_dashboard_1" class="tab_dashboard_content">
+            <div class="toolbar_block_left toolbar_hints_block">
+                <h4 class="toolbar_paragraph toolbar_center">Cache Management</h4>   
+                <table class="toolbar_table">              
+                    <thead>
+                        <tr>
+                            <th>Param</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="toolbar_table_odd"> 
+                            <td class="toolbar_table_left"><span class="hljs-attribute">Magento Cache</span></td>
+                            <td>
+                                <a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/clearCache') ?>">
+                                    Refresh
+                                </a>
+                            </td>
+                        </tr>                            
+                        <tr class="toolbar_table_even"> 
+                            <td class="toolbar_table_left"><span class="hljs-attribute">Catalog Images Cache</span></td>
+                            <td>
+                                <a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/clearImagesCache') ?>">
+                                    Refresh
+                                </a>
+                            </td>
+                        </tr>
+                        <tr class="toolbar_table_odd"> 
+                            <td class="toolbar_table_left"><span class="hljs-attribute">Javasipt/CSS Cache</span></td>
+                            <td>
+                                <a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/clearJsCssCache') ?>">
+                                    Refresh
+                                </a>
+                            </td>
+                        </tr> 
+                    </tbody>
+                </table>  
+            </div>
+            <div class="toolbar_block_left toolbar_hints_block">
+                <h4 class="toolbar_paragraph toolbar_center">Template Path Hints</h4>                                   
+                <table class="toolbar_table">              
+                    <thead>
+                        <tr>
+                            <th>Param</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>     
+                        <tr class="toolbar_table_odd"> 
+                            <td class="toolbar_table_left"><span class="hljs-attribute">Magento Translate Inline</span></td>
+                            <td>
+                                <?php
+                                if ($translateInlineEnabled) {
+                                    echo '<span class="color_yes">Enabled</span>';
+                                    $translateInlineAction = 'Disable';
+                                } else {
+                                    echo '<span class="color_no">Disabled</span>';
+                                    $translateInlineAction = 'Enable';
+                                }
+                                ?>
+                            </td>
+                            <td><a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/toggleTranslateInline') ?>">
+                                    <?php echo $translateInlineAction; ?>
+                                </a></td>
+                        </tr>   
+                        <tr class="toolbar_table_even"> 
+                            <td class="toolbar_table_left"><span class="hljs-attribute">Magento Template Hints</span></td>
+                            <td>
+                                <?php
+                                if ($templateHintsEnabled) {
+                                    echo '<span class="color_yes">Enabled</span>';
+                                    $templateHintsAction = 'Disable';
+                                } else {
+                                    echo '<span class="color_no">Disabled</span>';
+                                    $templateHintsAction = 'Enable';
+                                }
+                                ?>
+                            </td>
+                            <td><a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/toggleTemplateHints') ?>">
+                                    <?php echo $templateHintsAction; ?>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr class="toolbar_table_odd"> 
+                            <td class="toolbar_table_left"><span class="hljs-attribute">Extended Template Hints</span></td>
+                            <td>
+                                <?php
+                                if ($extendedTemplateHintsEnabled) {
+                                    echo '<span class="color_yes">Enabled</span>';
+                                    $extendedTemplateHintsAction = 'Disable';
+                                } else {
+                                    echo '<span class="color_no">Disabled</span>';
+                                    $extendedTemplateHintsAction = 'Enable';
+                                }
+                                ?>
+                            </td>
+                            <td><a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/toggleExtendedTemplate') ?>">
+                                    <?php echo $extendedTemplateHintsAction; ?>
+                                </a>
+                            </td>
+                        </tr>                    
+                    </tbody>
+                </table>
+            </div>
+            <div class="toolbar_block_left toolbar_hints_block">
+                <h4 class="toolbar_paragraph toolbar_center">Other Actions</h4>   
+                <table class="toolbar_table">              
+                    <thead>
+                        <tr>
+                            <th>Param</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="toolbar_table_odd"> 
+                            <td class="toolbar_table_left"><span class="hljs-attribute">Magento Indexes</span></td>
+                            <td>
+                                <a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/refreshIndexes') ?>">
+                                    Refresh
+                                </a>
+                            </td>
+                        </tr>
+                        <tr class="toolbar_table_even"> 
+                            <td class="toolbar_table_left"><span class="hljs-attribute">Session Files</span></td>
+                            <td>
+                                <a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/clearSessions') ?>">
+                                    Clear
+                                </a>
+                            </td>
+                        </tr> 
+                        <tr class="toolbar_table_odd"> 
+                            <td class="toolbar_table_left">
+                                <span class="hljs-attribute">
+                                    <?php
+                                    if ($logEnabled) {
+                                        echo 'Logging';
+                                        $logAction = 'Disable';
+                                    } else {
+                                        echo 'Logging';
+                                        $logAction = 'Enable';
+                                    }
+                                    ?>
+                                </span>
+                            </td>
+                            <td>
+                                <a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/toggleLog') ?>">
+                                    <?php echo $logAction; ?>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>  
+            </div>
+            <div class="toolbar_block_left toolbar_hints_block">
+                <h4 class="toolbar_paragraph toolbar_center">Information</h4>   
+                <table class="toolbar_table">              
+                    <thead>
+                        <tr>
+                            <th>Param</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="toolbar_table_odd"> 
+                            <td class="toolbar_table_left"><span class="hljs-attribute">Magento Version</span></td>
+                            <td><span class="hljs-string"><?php echo Mage::getVersion(); ?></span></td>
+                        </tr>    
+                        <tr class="toolbar_table_even"> 
+                            <td class="toolbar_table_left"><span class="hljs-attribute">Memory Usage</span></td>
+                            <td><span class="hljs-string"><?php echo Mage::helper('develop')->getMemoryPeakUsage(); ?></span></td>
+                        </tr>    
+                        <tr class="toolbar_table_odd"> 
+                            <td class="toolbar_table_left"><span class="hljs-attribute">Duration</span></td>
+                            <td><span class="hljs-string"><?php echo Mage::helper('develop')->getScriptDuration(); ?> sec</span></td>
+                        </tr>                      
+                    </tbody>
+                </table>  
+            </div>
+            <div class="toolbar_clear"></div>
+        </div>
+        <div id="tab_dashboard_2" class="tab_dashboard_content" style="display: none;">
+            <h4 class="toolbar_paragraph">Installed Extensions</h4>   
+            <table class="toolbar_table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Code Pool</th>
+                        <th>Version</th>
+                        <th>Enabled</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $row = 1;
+                    foreach ($this->getModules() as $name => $item) {
+                        $color = ($item['enabled'] == 'Yes' ? 'color_yes' : 'color_no');
+                        ?>
+                        <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">
+                            <td><?php echo $row ?></td>
+                            <td class="toolbar_table_left"><?php echo $name ?></td>
+                            <td><span class="<?php echo ($item['pool'] == 'community' ? 'hljs-attribute' : 'hljs-string'); ?>"><?php echo $item['pool'] ?></span></td>
+                            <td><?php echo $item['version'] ?></td>
+                            <td><?php echo '<span class="' . $color . '">' . $item['enabled'] . '</span>' ?></td>
+                            <td>
+                                <a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/toggleModule', array('_query' => array('data' => Mage::helper('develop')->getEncryptedData($name)))) ?>">
+                                    <?php echo ($item['enabled'] == 'Yes' ? 'Disable' : 'Enable') ?>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php
+                        $row++;
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>  
+        <div id="tab_dashboard_3" class="tab_dashboard_content" style="display: none;">
+            <h4 class="toolbar_paragraph">PHP Information</h4>   
+            <table class="toolbar_table toolbar_table_wrap">
+                <col width="20%" />
+                <col width="80%" />
+                <thead>
+                    <tr>
+                        <th>Param</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $info = Mage::helper('develop')->phpinfo2array();
+                    foreach ($info as $section => $item) {
+                        if (is_array($item)) {
+                            $row = 0;
+                            ?>
+                            <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">                         
+                                <td colspan="2"><h4 class="toolbar_paragraph"><?php echo $section; ?></h4></td>
+                            </tr>
+                            <?php
+                            $row++;
+                            foreach ($item as $param => $value) {
+                                ?>
+                                <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>"> 
+                                    <td class="toolbar_table_left"><span class="hljs-attribute"><?php echo $param ?></span></td>
+                                    <td class="toolbar_table_left"><span class="hljs-string">
+                                            <?php
+                                            if (is_array($value)) {
+                                                foreach ($value as $k => $v) {
+                                                    echo $k . ' => ' . $v . '<br/>';
+                                                }
+                                            } else {
+                                                echo $value;
+                                            }
+                                            ?>
+                                        </span></td>
+                                </tr>     
+                                <?php
+                                $row++;
+                            }
+                        }
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>  
+        <div id="tab_dashboard_4" class="tab_dashboard_content" style="display: none;">
+            <h4 class="toolbar_paragraph">System Log (last 100 lines)</h4> 
+            <?php
+            if ($logEnabled) {
+                ?>
+                <table class="toolbar_table toolbar_table_wrap">
+                    <col width="3%" />
+                    <col width="97%" />
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Line</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $num = 1;
+                        foreach ($systemLog as $row => $line) {   
+                            if($line == ''){
+                                continue;
+                            }
+                            ?>
+                            <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>"> 
+                                <td><span class="hljs-attribute"><?php echo $num; ?></span></td>
+                                <td class="toolbar_table_left"><span class="hljs-string">
+                                        <?php
+                                        echo $line;
+                                        ?>
+                                    </span></td>
+                            </tr>     
+                            <?php
+                            $num++;
+                        }
+                        ?>
+                    </tbody>
+                </table>
+
+                <?php
+            } else {
+                ?>
+                Log features disabled. <a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/toggleLog') ?>">Enable Logging</a>.
+                <?php
+            }
+            ?>
+        </div> 
+        <div id="tab_dashboard_5" class="tab_dashboard_content" style="display: none;">
+            <h4 class="toolbar_paragraph">Exceptions Log (last 100 lines)</h4> 
+            <?php
+            if ($logEnabled) {
+                ?>
+                <table class="toolbar_table toolbar_table_wrap">
+                    <col width="3%" />
+                    <col width="97%" />
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Line</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $num = 1;
+                        foreach ($exceptionLog as $row => $line) {   
+                            if($line == ''){
+                                continue;
+                            }
+                            ?>
+                            <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>"> 
+                                <td><span class="hljs-attribute"><?php echo $num; ?></span></td>
+                                <td class="toolbar_table_left"><span class="hljs-string">
+                                        <?php
+                                        echo $line;
+                                        ?>
+                                    </span></td>
+                            </tr>     
+                            <?php
+                            $num++;
+                        }
+                        ?>
+                    </tbody>
+                </table>
+
+                <?php
+            } else {
+                ?>
+                Log features disabled. <a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/toggleLog') ?>">Enable Logging</a>.
+                <?php
+            }
+            ?>
+        </div>         
+    </div>
+</div>
+<div class="toolbar_clear"></div>

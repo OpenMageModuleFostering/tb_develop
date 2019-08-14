@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>tb_develop</name>
+    <version>1.0.0</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/osl-3.0.php">Open Software License (OSL 3.0)</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>TB Develop Toolbar created by developer for developers.</summary>
+    <description>This toolbar contain only really needed features which I use in my everyday's work. If you are get tired of spending the time on investigation: which template used, which handle override this layout, which query is a bottleneck etc., this tool is defenitely what you are looking for.</description>
+    <notes>First release</notes>
+    <authors><author><name>ToxaBes</name><user>admin</user><email>toxabes@gmail.com</email></author></authors>
+    <date>2014-10-11</date>
+    <time>15:57:30</time>
+    <contents><target name="magelocal"><dir name="TB"><dir name="Develop"><dir name="Block"><file name="Blocks.php" hash="4b16e160b079058e24fb9729b8f6c925"/><file name="Controller.php" hash="b3ac25f1897b889872fde3d49a33bfef"/><file name="Dashboard.php" hash="e93c32fedd5f1b5cc9500ebcf3944f2b"/><file name="Layouts.php" hash="32fc2aa0ad1f325679216969ed40b790"/><file name="Models.php" hash="324b8bcbd4e256d5069d54c430f1ad41"/><file name="Toolbar.php" hash="889e39914fd902208578a6d9fcbac12b"/></dir><dir name="Helper"><file name="Data.php" hash="c69ce60c4fc88b7a9af2c5b213d3216a"/></dir><dir name="Model"><file name="Observer.php" hash="8865b9a64e5a34b3abdabcac9aa9d548"/><dir name="System"><dir name="Config"><dir name="Source"><file name="Scripts.php" hash="2f3df80d121a6762ee5c36322d16611d"/></dir></dir></dir></dir><dir name="controllers"><file name="IndexController.php" hash="4c122110d41377b8c839c773e0dc5293"/></dir><dir name="etc"><file name="config.xml" hash="f62974a5c13f48a4bedfd812ba64fe2a"/><file name="system.xml" hash="b4e7bc678dd19e43e7da2e3b7efd5ba4"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="TB_Develop.xml" hash="8768671ad2fa64f8b6a60ee5c8095d3b"/></dir></target><target name="mageweb"><dir name="js"><dir name="tb_develop"><file name="highlight.pack.js" hash="8e9e423bad2a9084b653f9d4107183f2"/><file name="jquery-2.1.1.min.js" hash="e40ec2161fe7993196f23c8a07346306"/><file name="jquery.functions.js" hash="5a5667869eb75139ca04033722fde929"/><file name="prototype.functions.js" hash="4876ca4e84da9ea3246a1f7480377a8f"/><file name="toolbar.css" hash="cfdd494c2f285a532e3fc3fe41078a5f"/></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="tb_develop.xml" hash="a33f5261cc84150ed6e3a86cbd10224e"/></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="tb_develop.xml" hash="94b15a3841a39255f56270ae6aaaa921"/></dir><dir name="template"><dir name="tb_develop"><file name="blocks.phtml" hash="1f403786dab5d3c4ef5baa8b7c29d06b"/><file name="controller.phtml" hash="dc5cae4d3b8d35278a1f7a3b6388606d"/><file name="dashboard.phtml" hash="f92e3fdd497b13cfbb885124f5cf51df"/><file name="layouts.phtml" hash="3338a1fa2b63dc6d81902b1ab91b4ab1"/><file name="models.phtml" hash="8fa7bf1954aad36f4d401ce2d9852c2a"/><file name="query.phtml" hash="d1f20ad1b404839c4cc0358718d81f09"/><file name="toolbar.phtml" hash="e40de548b059ff2239bec1014687071b"/></dir></dir></dir></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.1.0</min><max>6.0.0</max></php></required></dependencies>
+</package>
