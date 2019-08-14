@@ -2,7 +2,7 @@
 <config>
     <modules>
         <TB_Develop>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </TB_Develop>
     </modules>
     <frontend>
@@ -139,14 +139,14 @@
                 <admin>
                     <children>
                         <develop>
-                            <title>TB Develop Toolbar</title>
+                            <title>TB Developer Toolbar</title>
                             <sort_order>100</sort_order>
                         </develop>
                         <system>
                             <children>
                                 <config>
                                     <children>
-                                        <develop>TB Develop Toolbar Options</develop>
+                                        <develop>TB Developer Toolbar Options</develop>
                                     </children>
                                 </config>
                             </children>

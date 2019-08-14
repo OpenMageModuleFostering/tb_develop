@@ -265,10 +265,10 @@ $exceptionLog = Mage::helper('develop')->readExceptionLog();
                                             <?php
                                             if (is_array($value)) {
                                                 foreach ($value as $k => $v) {
-                                                    echo $k . ' => ' . $v . '<br/>';
+                                                    echo htmlentities($k) . ' => ' . htmlentities($v) . '<br/>';
                                                 }
                                             } else {
-                                                echo $value;
+                                                echo htmlentities($value);
                                             }
                                             ?>
                                         </span></td>
@@ -308,7 +308,7 @@ $exceptionLog = Mage::helper('develop')->readExceptionLog();
                                 <td><span class="hljs-attribute"><?php echo $num; ?></span></td>
                                 <td class="toolbar_table_left"><span class="hljs-string">
                                         <?php
-                                        echo $line;
+                                        echo htmlentities($line);
                                         ?>
                                     </span></td>
                             </tr>     
@@ -353,7 +353,7 @@ $exceptionLog = Mage::helper('develop')->readExceptionLog();
                                 <td><span class="hljs-attribute"><?php echo $num; ?></span></td>
                                 <td class="toolbar_table_left"><span class="hljs-string">
                                         <?php
-                                        echo $line;
+                                        echo htmlentities($line);
                                         ?>
                                     </span></td>
                             </tr>     
