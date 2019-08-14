@@ -1,6 +1,6 @@
 <!-- Develop Toolbar Start -->
 <?php 
-$sections = $this->getSections(); 
+$sections = $this->getSections();
 ?>
 <div id="develop_toolbar_container">
     <div id="develop_toolbar" style="display: none;">
@@ -14,6 +14,9 @@ $sections = $this->getSections();
                 <li><a id="toolbar_menu_<?php echo $section['id'] ?>" class="toolbar_menu_item <?php if ($first){ $first = false; echo 'toolbar_active'; } ?>" href="javascript:void(0);" onClick="TB_Menu('<?php echo $section['id'] ?>');"><?php echo $section['title'] ?></a></li>
                 <?php } ?>
             </ul>  
+            <div class="toolbar_version">
+                <a class="toolbar_version_link" href="http://www.magentocommerce.com/magento-connect/tb-developer-toolbar.html" title="Toolbar Home page">v <?php echo Mage::helper('develop')->getToolbarVersion(); ?></a>
+            </div>
         </div>        
         <div id="toolbar_content">
             <?php 

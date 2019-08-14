@@ -507,4 +507,7 @@ class TB_Develop_Helper_Data extends Mage_Core_Helper_Abstract {
         return $rewrites;
     }
 
+    public function getToolbarVersion(){                
+        return (string) Mage::getConfig()->getModuleConfig("TB_Develop")->version;
+    }
 }

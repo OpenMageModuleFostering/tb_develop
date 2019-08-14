@@ -393,6 +393,23 @@ table.toolbar_table tbody tr td.toolbar_table_left{
 .toolbar_rewrites_conflict{
     background-color: #F9CCCA !important;
 }
+.toolbar_version{
+    color:#555555;    
+    font-size:10px;
+    position: absolute;
+    bottom: 5px;
+    left: 135px;
+}
+.toolbar_version_link{
+    font-size:10px;
+    text-decoration: none;
+    color:#555555;
+}
+.toolbar_version_link:hover{
+    color:#FFBA00;
+    text-decoration: none;
+    text-shadow: 0 0 3px #FFBA00;   
+}
 .hljs {
     display: block;
     color: #333333;

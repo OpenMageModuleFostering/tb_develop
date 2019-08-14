@@ -27,6 +27,9 @@ class TB_Develop_Model_Observer {
     private static $zIndex = 900;
 
     public function addToolbarBlock(Varien_Event_Observer $observer) {
+        if(!Mage::helper('develop')->isAllowed()){
+            return $this;
+        }
         $this->globalEvents = Mage::app()->getConfig()->getNode('global')->events;
         $this->frontendEvents = Mage::app()->getConfig()->getNode('frontend')->events;
         $this->adminEvents = Mage::app()->getConfig()->getNode('adminhtml')->events;
@@ -37,6 +40,9 @@ class TB_Develop_Model_Observer {
     }
 
     public function onModelLoad(Varien_Event_Observer $observer) {
+        if(!Mage::helper('develop')->isAllowed()){
+            return $this;
+        }
         $event = $observer->getEvent();
         $object = $event->getObject();
         $key = get_class($object);
@@ -60,17 +66,27 @@ class TB_Develop_Model_Observer {
         $data['sql'] = $collection->getSelectSql(true);
         $data['class'] = get_class($collection);
         $this->collections[] = $data;
+        
+        return $this;
     }
 
     function onEavCollectionLoad(Varien_Event_Observer $event) {
+        if(!Mage::helper('develop')->isAllowed()){
+            return $this;
+        }
         $collection = $event->getCollection();
         $data = array('type' => 'eav');
         $data['sql'] = $collection->getSelectSql(true);
         $data['class'] = get_class($collection);
         $this->collections[] = $data;
+        
+        return $this;
     }
 
     public function onBlockToHtml(Varien_Event_Observer $observer) {
+        if(!Mage::helper('develop')->isAllowed()){
+            return $this;
+        }
         $event = $observer->getEvent();
         $block = $event->getBlock();
         $data = array();
@@ -87,6 +103,9 @@ class TB_Develop_Model_Observer {
     }
 
     public function onLayoutGenerate(Varien_Event_Observer $observer) {
+        if(!Mage::helper('develop')->isAllowed()){
+            return $this;
+        }
         $layout = $observer->getEvent()->getLayout();
         $layoutBlocks = $layout->getAllBlocks();
         foreach ($layoutBlocks as $block) {
@@ -100,9 +119,11 @@ class TB_Develop_Model_Observer {
             }
             $this->layoutBlocks[] = $data;
         }
+        
+        return $this;
     }
 
-    public function _prepareEventsList($object, $scope) {
+    protected function prepareEventsList($object, $scope) {
         $events = array();
         foreach ((array) $object as $event => $obj) {
             $data = (array) $obj->observers;
@@ -138,9 +159,12 @@ class TB_Develop_Model_Observer {
     }
 
     public function getEvents() {
-        $events1 = $this->_prepareEventsList($this->globalEvents, 'global');
-        $events2 = $this->_prepareEventsList($this->frontendEvents, 'frontend');
-        $events3 = $this->_prepareEventsList($this->adminEvents, 'adminhtml');
+        if(!Mage::helper('develop')->isAllowed()){
+            return array();
+        }
+        $events1 = $this->prepareEventsList($this->globalEvents, 'global');
+        $events2 = $this->prepareEventsList($this->frontendEvents, 'frontend');
+        $events3 = $this->prepareEventsList($this->adminEvents, 'adminhtml');
         $events = array_merge($events1, $events2, $events3);
         asort($events);
 
@@ -148,6 +172,9 @@ class TB_Develop_Model_Observer {
     }
 
     public function getQueries() {
+        if(!Mage::helper('develop')->isAllowed()){
+            return array();
+        }
         $profiler = Mage::getSingleton('core/resource')->getConnection('core_write')->getProfiler();
         $queries = array();
         if ($profiler) {
@@ -282,7 +309,7 @@ HTML;
         $transport->setHtml($html);
     }
 
-    public function onFirstEvent(Varien_Event_Observer $observer){
+    public function onFirstEvent(){       
         Varien_Profiler::enable();
     }
 }

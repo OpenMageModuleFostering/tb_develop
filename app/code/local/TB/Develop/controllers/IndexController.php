@@ -15,12 +15,7 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class TB_Develop_IndexController extends Mage_Core_Controller_Front_Action {
-
-    public function indexAction() {
-        $this->loadLayout();
-        $this->renderLayout();
-    }
-
+    
     private function _back($isError = true, $message = '') {
         if (!empty($message)) {
             if ($isError) {
@@ -31,8 +26,17 @@ class TB_Develop_IndexController extends Mage_Core_Controller_Front_Action {
         }
         $this->_redirectReferer();
     }
+    
+    private function show404(){
+        $this->getResponse()->setHeader('HTTP/1.1','404 Not Found');
+        $this->getResponse()->setHeader('Status','404 File not found');
+        $this->_forward('defaultNoRoute');
+    }
 
     public function executeAction() {
+        if(!Mage::helper('develop')->isAllowed()){
+            return $this->show404();
+        }
         $columns = $rows = array();
         $data = trim($this->getRequest()->getParam('data'));
         if ($data != '') {
@@ -70,6 +74,9 @@ class TB_Develop_IndexController extends Mage_Core_Controller_Front_Action {
     }
 
     public function toggleModuleAction() {
+        if(!Mage::helper('develop')->isAllowed()){
+            return $this->show404();
+        }
         $module = '';
         $data = trim($this->getRequest()->getParam('data'));
         if ($data != '') {
@@ -105,22 +112,34 @@ class TB_Develop_IndexController extends Mage_Core_Controller_Front_Action {
     }
 
     public function clearCacheAction() {
+        if(!Mage::helper('develop')->isAllowed()){
+            return $this->show404();
+        }
         Mage::app()->getCacheInstance()->flush();
         Mage::app()->cleanCache();
         echo $this->_back(false, "Magento's caches successfully cleared!");
     }
 
     public function clearImagesCacheAction() {
+        if(!Mage::helper('develop')->isAllowed()){
+            return $this->show404();
+        }
         Mage::getModel('catalog/product_image')->clearCache();
         echo $this->_back(false, "Catalog images cache successfully cleared!");
     }
 
     public function clearJsCssCacheAction() {
+        if(!Mage::helper('develop')->isAllowed()){
+            return $this->show404();
+        }
         Mage::getModel('core/design_package')->cleanMergedJsCss();
         echo $this->_back(false, "Javasipt/CSS cache successfully cleared!");
     }
 
     public function refreshIndexesAction() {
+        if(!Mage::helper('develop')->isAllowed()){
+            return $this->show404();
+        }
         $indexCollection = Mage::getModel('index/process')->getCollection();
         foreach ($indexCollection as $index) {
             $index->reindexAll();
@@ -129,11 +148,17 @@ class TB_Develop_IndexController extends Mage_Core_Controller_Front_Action {
     }
 
     public function clearSessionsAction() {
+        if(!Mage::helper('develop')->isAllowed()){
+            return $this->show404();
+        }
         Mage::app()->cleanAllSessions();
         echo $this->_back(false, "Sessions successfully cleared!");
     }
 
     public function toggleExtendedTemplateAction($back = true){
+        if(!Mage::helper('develop')->isAllowed()){
+            return $this->show404();
+        }
         $templateHints = (bool)Mage::getStoreConfig('dev/debug/template_hints');
         if($templateHints){
             $this->toggleTemplateHintsAction(false);
@@ -152,6 +177,9 @@ class TB_Develop_IndexController extends Mage_Core_Controller_Front_Action {
     }    
     
     public function toggleTemplateHintsAction($back = true) {
+        if(!Mage::helper('develop')->isAllowed()){
+            return $this->show404();
+        }
         $extendedTemplateHints = Mage::getStoreConfig('dev/tb_develop/extended_template_hints');
         if($extendedTemplateHints){
             $this->toggleExtendedTemplateAction(false);
@@ -174,6 +202,9 @@ class TB_Develop_IndexController extends Mage_Core_Controller_Front_Action {
     }
 
     public function toggleTranslateInlineAction() {
+        if(!Mage::helper('develop')->isAllowed()){
+            return $this->show404();
+        }
         $currentStatus = Mage::getStoreConfig('dev/translate_inline/active');
         $newStatus = !$currentStatus;
         Mage::getConfig()->saveConfig('dev/translate_inline/active', $newStatus, 'stores', Mage::app()->getStore()->getStoreId());
@@ -188,6 +219,9 @@ class TB_Develop_IndexController extends Mage_Core_Controller_Front_Action {
     }
 
     public function toggleLogAction() {
+        if(!Mage::helper('develop')->isAllowed()){
+            return $this->show404();
+        }
         $currentStatus = Mage::getStoreConfig('dev/log/active');
         $newStatus = !$currentStatus;
         Mage::getConfig()->saveConfig('dev/log/active', $newStatus, 'stores', Mage::app()->getStore()->getStoreId());
