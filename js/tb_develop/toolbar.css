@@ -390,6 +390,9 @@ table.toolbar_table tbody tr td.toolbar_table_left{
     z-index:1001 !important;
     display : block;
 }
+.toolbar_rewrites_conflict{
+    background-color: #F9CCCA !important;
+}
 .hljs {
     display: block;
     color: #333333;

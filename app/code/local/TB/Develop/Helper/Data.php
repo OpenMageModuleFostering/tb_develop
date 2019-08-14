@@ -453,5 +453,58 @@ class TB_Develop_Helper_Data extends Mage_Core_Helper_Abstract {
                 
         return $jobs;
     }
+    
+    protected function collectRewrites($rewrites, $data, $type){
+        $nodes = $data->children();
+        foreach($nodes as $name => $config) {
+            if ($config->rewrite) {
+                $classes = array();
+                foreach($config->rewrite->children() as $id => $class) {
+                    $classes[] = (string)$class;
+                    $initClass = uc_words('mage_' . $name . '_' . $id);
+                    $finalClass = uc_words((string)$class);
+                    if ($class == $finalClass) {
+                        $status = 'ok';
+                    } elseif (is_subclass_of($finalClass, $class)) {
+                        $status = 'ok';
+                    } else {
+                        $status = 'conflict';
+                    }
+                    $rewrites[$initClass][] = array('class' => (string)$class,
+                                                    'type' => $type,
+                                                    'status' => $status
+                                                  );
+                }
+            }
+        }
+        
+        return $rewrites;
+    }
+
+    public function getRewrites(){
+        $rewrites = array();        
+        $ext = Mage::getConfig()->getNode('modules')->children();
+        foreach ($ext as $moduleName => $module) {
+            if ($module->is('active')) {                               
+                $file = Mage::getConfig()->getModuleDir('etc', $moduleName) . DS . 'config.xml';
+                $config = Mage::getModel('core/config_base');
+                $config->loadFile($file);
+                $helpers = $config->getNode()->global->helpers;
+                $blocks = $config->getNode()->global->blocks;
+                $models = $config->getNode()->global->models;
+                if($helpers){
+                    $rewrites = $this->collectRewrites($rewrites, $helpers, 'helper');
+                }
+                if($blocks){
+                    $rewrites = $this->collectRewrites($rewrites, $blocks, 'block');
+                }
+                if($models){
+                    $rewrites = $this->collectRewrites($rewrites, $models, 'model');
+                }                                              
+            }        
+        }
+        
+        return $rewrites;
+    }
 
 }

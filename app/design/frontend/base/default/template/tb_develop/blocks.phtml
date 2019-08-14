@@ -4,11 +4,14 @@ $blocks = $this->getBlocks();
 $layoutBlocks = $this->getLayoutBlocks();
 $totalBlocks = count($blocks);
 $totalLayoutBlocks = count($layoutBlocks);
+$rewrites = Mage::helper('develop')->getRewrites();
+$totalRewrites = count($rewrites);
 ?>
 <div id="tabs_blocks_container">
     <ul class="tabs_blocks_menu">
         <li class="toolbar_menu_current"><a id="toolbar_link_blocks_1" href="javascript:void(0);" onClick="TB_Tab('blocks', 1);">Rendered Blocks</a></li>
         <li><a id="toolbar_link_blocks_2" href="javascript:void(0);" onClick="TB_Tab('blocks', 2);">All Blocks</a></li>
+        <li><a id="toolbar_link_blocks_3" href="javascript:void(0);" onClick="TB_Tab('blocks', 3);">Rewrites</a></li>
     </ul>
     <div class="tab_blocks">
         <div id="tab_blocks_1" class="tab_blocks_content">
@@ -96,6 +99,61 @@ $totalLayoutBlocks = count($layoutBlocks);
                             </td>
                         </tr>
                         <?php
+                        $row++;
+                    }
+                    ?>
+                </tbody>
+            </table>
+            </p>
+        </div>
+        <div id="tab_blocks_3" class="tab_blocks_content" style="display: none;">
+            <p>
+            <h4 class="toolbar_paragraph">Rewrites (<?php echo $totalRewrites . " items"; ?>)</h4>   
+            <table class="toolbar_table toolbar_table_wrap">
+                <col width="3%" />
+                <col width="7%" />
+                <col width="35%" />
+                <col width="50%" />
+                <col width="5%" />                
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Type</th>
+                        <th>Magento Core Class</th>
+                        <th>Rewrites</th>
+                        <th>Status</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $row = 1;
+                    foreach ($rewrites as $magentoClass => $rewrites) {
+                        $rowspan = '';
+                        $rows = count($rewrites);  
+                        foreach ($rewrites as $idx => $item){
+                            $color = ($item['status'] == 'ok' ? 'color_yes' : 'color_no');
+                            if($idx == 0 && $rows > 1){
+                                $rowspan = 'rowspan="' . $rows . '"';
+                            }
+                        ?>
+                        <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">
+                            <?php if($idx == 0){ ?>                            
+                            <td <?php echo $rowspan; ?>><?php echo $row ?></td>  
+                            <td <?php echo $rowspan; ?>><?php echo $item['type']; ?></td>                            
+                            <td <?php echo $rowspan; ?> class="toolbar_table_left"><span class="hljs-attribute"><?php echo $magentoClass; ?></span></td>
+                            <?php } ?>
+                            <td class="toolbar_table_left <?php echo ($item['status'] != 'ok' ? 'toolbar_rewrites_conflict' : ''); ?>">
+                                <?php if($rows > 1){ ?>                               
+                                    <?php echo $idx+1; ?>. <span class="hljs-string"><?php echo $item['class']; ?></span>
+                                <?php }else{ ?>    
+                                    <span class="<?php echo ($item['status'] != 'ok' ? 'hljs-string' : 'hljs-attribute'); ?>"><?php echo $item['class']; ?></span>
+                                <?php } ?>        
+                            </td>
+                            <td><span class="<?php echo $color; ?>"><?php echo $item['status']; ?></span></td>                            
+                        </tr>
+                        <?php                                                
+                        }
                         $row++;
                     }
                     ?>
