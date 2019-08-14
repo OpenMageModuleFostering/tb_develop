@@ -125,33 +125,35 @@ class TB_Develop_Model_Observer {
 
     protected function prepareEventsList($object, $scope) {
         $events = array();
-        foreach ((array) $object as $event => $obj) {
-            $data = (array) $obj->observers;
-            foreach ($data as $key => $item_obj) {
-                $item = (array) $item_obj;
-                if (array_key_exists('type', $item)) {
-                    $type = $item['type'];
-                } else {
-                    $type = '';
+        if (is_array($object)) {
+            foreach ($object as $event => $obj) {
+                $data = (array) $obj->observers;
+                foreach ($data as $key => $item_obj) {
+                    $item = (array) $item_obj;
+                    if (array_key_exists('type', $item)) {
+                        $type = $item['type'];
+                    } else {
+                        $type = '';
+                    }
+                    if (array_key_exists('class', $item)) {
+                        $class = $item['class'];
+                    } else {
+                        $class = '';
+                    }
+                    if (array_key_exists('method', $item)) {
+                        $method = $item['method'];
+                    } else {
+                        $method = '';
+                    }
+                    $events[] = array(
+                        "event" => $event,
+                        "key" => $key,
+                        "scope" => $scope,
+                        "class" => $class,
+                        "method" => $method,
+                        "type" => $type
+                    );
                 }
-                if (array_key_exists('class', $item)) {
-                    $class = $item['class'];
-                } else {
-                    $class = '';
-                }
-                if (array_key_exists('method', $item)) {
-                    $method = $item['method'];
-                } else {
-                    $method = '';
-                }
-                $events[] = array(
-                    "event" => $event,
-                    "key" => $key,
-                    "scope" => $scope,
-                    "class" => $class,
-                    "method" => $method,
-                    "type" => $type
-                );
             }
         }
 
@@ -280,20 +282,20 @@ class TB_Develop_Model_Observer {
                             </thead>
                             <tbody>
                                  <tr class="toolbar_table_odd">                      
-                                      <td class="toolbar_table_left"><span class="hljs-attribute">Layout</span></td>        
+                                      <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Layout</span></td>        
                                       <td class="toolbar_table_left">{$info["layout_name"]}</td>
                                  </tr>
                                  <tr class="toolbar_table_even">                      
-                                      <td class="toolbar_table_left"><span class="hljs-attribute">Alias</span></td>        
+                                      <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Alias</span></td>        
                                       <td class="toolbar_table_left">{$info["alias"]}</td>
                                  </tr>
                                  <tr class="toolbar_table_odd">                      
-                                      <td class="toolbar_table_left"><span class="hljs-attribute">Template</span></td>        
-                                      <td class="toolbar_table_left"><span class="hljs-string">{$info["template"]}</span></td>
+                                      <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Template</span></td>        
+                                      <td class="toolbar_table_left"><span class="toolbar_table_syntax-string">{$info["template"]}</span></td>
                                  </tr>
                                  
                                  <tr class="toolbar_table_even">                      
-                                      <td class="toolbar_table_left"><span class="hljs-attribute">Cached</span></td>        
+                                      <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Cached</span></td>        
                                       <td class="toolbar_table_left"><span style="color:{$info["color"]};">{$info["cached"]}</span></td>
                                  </tr>
                             </tbody>

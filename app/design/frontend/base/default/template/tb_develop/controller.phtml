@@ -15,7 +15,7 @@ $session = Mage::getSingleton('core/session');
         <div id="tab_controller_1" class="tab_controller_content">
             <p>                            
             <h4 class="toolbar_paragraph">Controller Information</h4>
-            <table class="toolbar_table toolbar_table_wrap">
+            <table class="toolbar_table toolbar_table_wrap toolbar_table_sortable">
                 <col width="20%" />
                 <col width="80%" />
                 <thead>
@@ -26,49 +26,49 @@ $session = Mage::getSingleton('core/session');
                 </thead>
                 <tbody>
                     <tr class="toolbar_table_odd">
-                        <td class="toolbar_table_left"><span class="hljs-attribute">Controller</span></td>
-                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo $request->getControllerModule() ?></span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Controller</span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-string"><?php echo $request->getControllerModule() ?></span></td>
                     </tr>
                     <tr class="toolbar_table_even">
-                        <td class="toolbar_table_left"><span class="hljs-attribute">Method</span></td>
-                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo $request->getActionName() . 'Action' ?></span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Method</span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-string"><?php echo $request->getActionName() . 'Action' ?></span></td>
                     </tr>
                     <tr class="toolbar_table_odd">
-                        <td class="toolbar_table_left"><span class="hljs-attribute">Route Name</span></td>
-                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo $request->getRouteName() ?></span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Route Name</span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-string"><?php echo $request->getRouteName() ?></span></td>
                     </tr>
                     <tr class="toolbar_table_even">
                         <td class="toolbar_table_left"><span class="hljs-attribute">Request Path</span></td>
                         <td class="toolbar_table_left"><span class="hljs-string"><?php echo $request->getPathInfo() ?></span></td>
                     </tr>
                     <tr class="toolbar_table_odd">
-                        <td class="toolbar_table_left"><span class="hljs-attribute">Current URL</span></td>
-                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo Mage::helper('core/url')->getCurrentUrl() ?></span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Current URL</span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-string"><?php echo Mage::helper('core/url')->getCurrentUrl() ?></span></td>
                     </tr>
                     <tr class="toolbar_table_even">
-                        <td class="toolbar_table_left"><span class="hljs-attribute">File Path</span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">File Path</span></td>
                         <td class="toolbar_table_left">
-                            <span class="hljs-string"><?php echo Mage::getModuleDir('controllers', $request->getControllerModule()) . '/' . ucfirst($request->getControllerName()) . 'Controller.php' ?></span>
+                            <span class="toolbar_table_syntax-string"><?php echo Mage::getModuleDir('controllers', $request->getControllerModule()) . '/' . ucfirst($request->getControllerName()) . 'Controller.php' ?></span>
                         </td>
                     <tr class="toolbar_table_odd">
-                        <td class="toolbar_table_left"><span class="hljs-attribute">Module Name</span></td>
-                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo $request->getModuleName() ?></span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Module Name</span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-string"><?php echo $request->getModuleName() ?></span></td>
                     </tr>
                     <tr class="toolbar_table_even">
-                        <td class="toolbar_table_left"><span class="hljs-attribute">Controller Name</span></td>
-                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo $request->getControllerName() ?></span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Controller Name</span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-string"><?php echo $request->getControllerName() ?></span></td>
                     </tr>
                     <tr class="toolbar_table_odd">
-                        <td class="toolbar_table_left"><span class="hljs-attribute">Action Name</span></td>
-                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo $request->getActionName() ?></span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Action Name</span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-string"><?php echo $request->getActionName() ?></span></td>
                     </tr>
                     <tr class="toolbar_table_even">
-                        <td class="toolbar_table_left"><span class="hljs-attribute">Store Id</span></td>
-                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo Mage::app()->getStore()->getStoreId(); ?></span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Store Id</span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-string"><?php echo Mage::app()->getStore()->getStoreId(); ?></span></td>
                     </tr>
                     <tr class="toolbar_table_odd">
-                        <td class="toolbar_table_left"><span class="hljs-attribute">Website Id</span></td>
-                        <td class="toolbar_table_left"><span class="hljs-string"><?php echo Mage::app()->getStore()->getWebsiteId(); ?></span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Website Id</span></td>
+                        <td class="toolbar_table_left"><span class="toolbar_table_syntax-string"><?php echo Mage::app()->getStore()->getWebsiteId(); ?></span></td>
                     </tr>
                 </tbody>
             </table>   
@@ -79,7 +79,7 @@ $session = Mage::getSingleton('core/session');
             <h4 class="toolbar_paragraph">GET Variables</h4>
 
             <?php if ($_GET) { ?>
-                <table class="toolbar_table toolbar_table_wrap">
+                <table class="toolbar_table toolbar_table_ toolbar_table_sortable">
                     <col width="20%" />
                     <col width="80%" />
                     <thead>
@@ -94,8 +94,8 @@ $session = Mage::getSingleton('core/session');
                         foreach ($_GET as $key => $value) {
                             ?>
                             <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">		
-                                <td class="toolbar_table_left"><span class="hljs-attribute"><?php echo htmlspecialchars($key) ?></span></td>
-                                <td class="toolbar_table_left"><span class="hljs-string"><?php echo htmlspecialchars($value) ?></span></td>
+                                <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute"><?php echo htmlspecialchars($key) ?></span></td>
+                                <td class="toolbar_table_left"><span class="toolbar_table_syntax-string"><?php echo htmlspecialchars($value) ?></span></td>
                             </tr>
                             <?php
                             $row++;
@@ -110,7 +110,7 @@ $session = Mage::getSingleton('core/session');
             <p>
             <h4 class="toolbar_paragraph">POST Variables</h4>
             <?php if ($_POST) { ?>
-                <table class="toolbar_table toolbar_table_wrap">
+                <table class="toolbar_table toolbar_table_ toolbar_table_sortable">
                     <col width="20%" />
                     <col width="80%" />
                     <thead>
@@ -125,8 +125,8 @@ $session = Mage::getSingleton('core/session');
                         foreach ($_POST as $key => $value) {
                             ?>
                             <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">			
-                                <td class="toolbar_table_left"><span class="hljs-attribute"><?php echo htmlspecialchars($key) ?></span></td>
-                                <td class="toolbar_table_left"><span class="hljs-string"><?php echo htmlspecialchars($value) ?></span></td>
+                                <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute"><?php echo htmlspecialchars($key) ?></span></td>
+                                <td class="toolbar_table_left"><span class="toolbar_table_syntax-string"><?php echo htmlspecialchars($value) ?></span></td>
                             </tr>
                             <?php
                             $row++;
@@ -143,7 +143,7 @@ $session = Mage::getSingleton('core/session');
             <p>
             <h4 class="toolbar_paragraph">SESSION Information</h4>
             <?php if ($session) { ?>
-                <table class="toolbar_table toolbar_table_wrap">
+                <table class="toolbar_table toolbar_table_ toolbar_table_sortable">
                     <col width="20%" />
                     <col width="80%" />
                     <thead>
@@ -164,13 +164,13 @@ $session = Mage::getSingleton('core/session');
                                     if (is_array($value)) {
                                         foreach ($value as $k => $v) {
                                             if (trim($k) != '') {
-                                                echo '<span class="hljs-attribute">' . $k . '</span> => <span class="hljs-string">' . $v . '</span><br/>';
+                                                echo '<span class="toolbar_table_syntax-attribute">' . $k . '</span> => <span class="toolbar_table_syntax-string">' . $v . '</span><br/>';
                                             }
                                         }
                                     } elseif (is_object($value)) {
-                                        echo '<span class="hljs-string">' . get_class($value) . '</span>';
+                                        echo '<span class="toolbar_table_syntax-string">' . get_class($value) . '</span>';
                                     } else {
-                                        echo '<span class="hljs-string">' . htmlspecialchars(trim($value)) . '</span>';
+                                        echo '<span class="toolbar_table_syntax-string">' . htmlspecialchars(trim($value)) . '</span>';
                                     }
                                     ?>
                                 </td>
@@ -190,7 +190,7 @@ $session = Mage::getSingleton('core/session');
             <p>                    
             <h4 class="toolbar_paragraph">COOKIES Information</h4>
             <?php if ($cookies) { ?>
-                <table class="toolbar_table toolbar_table_wrap">
+                <table class="toolbar_table toolbar_table_ toolbar_table_sortable">
                     <col width="20%" />
                     <col width="80%" />
                     <thead>
@@ -207,7 +207,7 @@ $session = Mage::getSingleton('core/session');
                             <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">
                                 <td class="toolbar_table_left"><?php echo htmlspecialchars($key) ?></td>
                                 <td class="toolbar_table_left">
-                                    <div class="toolbar_table_syntax json">
+                                    <div class="toolbar_table_syntax-string">
                                         <?php echo htmlspecialchars($value) ?>
                                     </div>
                                 </td>

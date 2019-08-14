@@ -17,7 +17,7 @@ $totalRewrites = count($rewrites);
         <div id="tab_blocks_1" class="tab_blocks_content">
             <p>                            
             <h4 class="toolbar_paragraph">Rendered Blocks (<?php echo $totalBlocks . " items"; ?>)</h4>   
-            <table class="toolbar_table toolbar_table_wrap">
+            <table class="toolbar_table toolbar_table_wrap toolbar_table_sortable">
                 <col width="3%" />
                 <col width="20%" />
                 <col width="22%" />
@@ -38,12 +38,12 @@ $totalRewrites = count($rewrites);
                         ?>
                         <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">	
                             <td><?php echo $row ?></td>            		
-                            <td class="toolbar_table_left"><span class="hljs-attribute"><?php echo $block['layout_name'] ?></span></td>
+                            <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute"><?php echo $block['layout_name'] ?></span></td>
                             <td class="toolbar_table_left"><?php echo $block['class'] ?></td>
                             <td class="toolbar_table_left">
                                 <?php
                                 if ($block['template']) {
-                                    echo '<span class="hljs-string">app/design/' . $block['template'] . '</span>';
+                                    echo '<span class="toolbar_table_syntax-string">app/design/' . $block['template'] . '</span>';
                                 }
                                 ?>
                             </td>
@@ -59,7 +59,7 @@ $totalRewrites = count($rewrites);
         <div id="tab_blocks_2" class="tab_blocks_content" style="display: none;">
             <p>
             <h4 class="toolbar_paragraph">Layout Blocks (<?php echo $totalLayoutBlocks . " items"; ?>)</h4>   
-            <table class="toolbar_table toolbar_table_wrap">
+            <table class="toolbar_table toolbar_table_wrap toolbar_table_sortable">
                 <col width="3%" />
                 <col width="20%" />
                 <col width="20%" />
@@ -81,7 +81,7 @@ $totalRewrites = count($rewrites);
                         ?>
                         <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">	
                             <td><?php echo $row ?></td>
-                            <td class="toolbar_table_left"><span class="hljs-attribute"><?php echo $block['layout_name'] ?></span></td>
+                            <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute"><?php echo $block['layout_name'] ?></span></td>
                             <td class="toolbar_table_left"><?php echo $block['class'] ?></td>
                             <td>
                                 <?php if (in_array($block['layout_name'], $reneredBlocks)) { ?> 
@@ -93,7 +93,7 @@ $totalRewrites = count($rewrites);
                             <td class="toolbar_table_left">
                                 <?php
                                 if ($block['template']) {
-                                    echo '<span class="hljs-string">app/design/' . $block['template'] . '</span>';
+                                    echo '<span class="toolbar_table_syntax-string">app/design/' . $block['template'] . '</span>';
                                 }
                                 ?>
                             </td>
@@ -141,13 +141,13 @@ $totalRewrites = count($rewrites);
                             <?php if($idx == 0){ ?>                            
                             <td <?php echo $rowspan; ?>><?php echo $row ?></td>  
                             <td <?php echo $rowspan; ?>><?php echo $item['type']; ?></td>                            
-                            <td <?php echo $rowspan; ?> class="toolbar_table_left"><span class="hljs-attribute"><?php echo $magentoClass; ?></span></td>
+                            <td <?php echo $rowspan; ?> class="toolbar_table_left"><span class="toolbar_table_syntax-attribute"><?php echo $magentoClass; ?></span></td>
                             <?php } ?>
                             <td class="toolbar_table_left <?php echo ($item['status'] != 'ok' ? 'toolbar_rewrites_conflict' : ''); ?>">
                                 <?php if($rows > 1){ ?>                               
-                                    <?php echo $idx+1; ?>. <span class="hljs-string"><?php echo $item['class']; ?></span>
+                                    <?php echo $idx+1; ?>. <span class="toolbar_table_syntax-string"><?php echo $item['class']; ?></span>
                                 <?php }else{ ?>    
-                                    <span class="<?php echo ($item['status'] != 'ok' ? 'hljs-string' : 'hljs-attribute'); ?>"><?php echo $item['class']; ?></span>
+                                    <span class="<?php echo ($item['status'] != 'ok' ? 'toolbar_table_syntax-string' : 'toolbar_table_syntax-attribute'); ?>"><?php echo $item['class']; ?></span>
                                 <?php } ?>        
                             </td>
                             <td><span class="<?php echo $color; ?>"><?php echo $item['status']; ?></span></td>                            

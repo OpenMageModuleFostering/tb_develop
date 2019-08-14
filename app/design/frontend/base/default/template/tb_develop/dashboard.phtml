@@ -24,7 +24,7 @@ $timersTotal = count($timers);
         <div id="tab_dashboard_1" class="tab_dashboard_content">
             <div class="toolbar_block_left toolbar_hints_block">
                 <h4 class="toolbar_paragraph toolbar_center">Cache Management</h4>   
-                <table class="toolbar_table">              
+                <table class="toolbar_table toolbar_table_sortable">              
                     <thead>
                         <tr>
                             <th>Param</th>
@@ -33,7 +33,7 @@ $timersTotal = count($timers);
                     </thead>
                     <tbody>
                         <tr class="toolbar_table_odd"> 
-                            <td class="toolbar_table_left"><span class="hljs-attribute">Magento Cache</span></td>
+                            <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Magento Cache</span></td>
                             <td>
                                 <a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/clearCache') ?>">
                                     Refresh
@@ -41,7 +41,7 @@ $timersTotal = count($timers);
                             </td>
                         </tr>                            
                         <tr class="toolbar_table_even"> 
-                            <td class="toolbar_table_left"><span class="hljs-attribute">Catalog Images Cache</span></td>
+                            <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Catalog Images Cache</span></td>
                             <td>
                                 <a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/clearImagesCache') ?>">
                                     Refresh
@@ -49,7 +49,7 @@ $timersTotal = count($timers);
                             </td>
                         </tr>
                         <tr class="toolbar_table_odd"> 
-                            <td class="toolbar_table_left"><span class="hljs-attribute">Javasipt/CSS Cache</span></td>
+                            <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Javasipt/CSS Cache</span></td>
                             <td>
                                 <a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/clearJsCssCache') ?>">
                                     Refresh
@@ -61,7 +61,7 @@ $timersTotal = count($timers);
             </div>
             <div class="toolbar_block_left toolbar_hints_block">
                 <h4 class="toolbar_paragraph toolbar_center">Template Path Hints</h4>                                   
-                <table class="toolbar_table">              
+                <table class="toolbar_table toolbar_table_sortable">              
                     <thead>
                         <tr>
                             <th>Param</th>
@@ -71,7 +71,7 @@ $timersTotal = count($timers);
                     </thead>
                     <tbody>     
                         <tr class="toolbar_table_odd"> 
-                            <td class="toolbar_table_left"><span class="hljs-attribute">Magento Translate Inline</span></td>
+                            <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Magento Translate Inline</span></td>
                             <td>
                                 <?php
                                 if ($translateInlineEnabled) {
@@ -88,7 +88,7 @@ $timersTotal = count($timers);
                                 </a></td>
                         </tr>   
                         <tr class="toolbar_table_even"> 
-                            <td class="toolbar_table_left"><span class="hljs-attribute">Magento Template Hints</span></td>
+                            <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Magento Template Hints</span></td>
                             <td>
                                 <?php
                                 if ($templateHintsEnabled) {
@@ -106,7 +106,7 @@ $timersTotal = count($timers);
                             </td>
                         </tr>
                         <tr class="toolbar_table_odd"> 
-                            <td class="toolbar_table_left"><span class="hljs-attribute">Extended Template Hints</span></td>
+                            <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Extended Template Hints</span></td>
                             <td>
                                 <?php
                                 if ($extendedTemplateHintsEnabled) {
@@ -128,7 +128,7 @@ $timersTotal = count($timers);
             </div>
             <div class="toolbar_block_left toolbar_hints_block">
                 <h4 class="toolbar_paragraph toolbar_center">Other Actions</h4>   
-                <table class="toolbar_table">              
+                <table class="toolbar_table toolbar_table_sortable">              
                     <thead>
                         <tr>
                             <th>Param</th>
@@ -137,7 +137,7 @@ $timersTotal = count($timers);
                     </thead>
                     <tbody>
                         <tr class="toolbar_table_odd"> 
-                            <td class="toolbar_table_left"><span class="hljs-attribute">Magento Indexes</span></td>
+                            <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Magento Indexes</span></td>
                             <td>
                                 <a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/refreshIndexes') ?>">
                                     Refresh
@@ -145,7 +145,7 @@ $timersTotal = count($timers);
                             </td>
                         </tr>
                         <tr class="toolbar_table_even"> 
-                            <td class="toolbar_table_left"><span class="hljs-attribute">Session Files</span></td>
+                            <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Session Files</span></td>
                             <td>
                                 <a class="toolbar_link" href="<?php echo Mage::getUrl('develop/index/clearSessions') ?>">
                                     Clear
@@ -154,7 +154,7 @@ $timersTotal = count($timers);
                         </tr> 
                         <tr class="toolbar_table_odd"> 
                             <td class="toolbar_table_left">
-                                <span class="hljs-attribute">
+                                <span class="toolbar_table_syntax-attribute">
                                     <?php
                                     if ($logEnabled) {
                                         echo 'Logging';
@@ -177,7 +177,7 @@ $timersTotal = count($timers);
             </div>
             <div class="toolbar_block_left toolbar_hints_block">
                 <h4 class="toolbar_paragraph toolbar_center">Information</h4>   
-                <table class="toolbar_table">              
+                <table class="toolbar_table toolbar_table_sortable">              
                     <thead>
                         <tr>
                             <th>Param</th>
@@ -186,16 +186,16 @@ $timersTotal = count($timers);
                     </thead>
                     <tbody>
                         <tr class="toolbar_table_odd"> 
-                            <td class="toolbar_table_left"><span class="hljs-attribute">Magento Version</span></td>
-                            <td><span class="hljs-string"><?php echo Mage::getVersion(); ?></span></td>
+                            <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Magento Version</span></td>
+                            <td><span class="toolbar_table_syntax-string"><?php echo Mage::getEdition() . ' v.' . Mage::getVersion(); ?></span></td>
                         </tr>    
                         <tr class="toolbar_table_even"> 
-                            <td class="toolbar_table_left"><span class="hljs-attribute">Memory Usage</span></td>
-                            <td><span class="hljs-string"><?php echo Mage::helper('develop')->getMemoryPeakUsage(); ?></span></td>
+                            <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Memory Usage</span></td>
+                            <td><span class="toolbar_table_syntax-string"><?php echo Mage::helper('develop')->getMemoryPeakUsage(); ?></span></td>
                         </tr>    
                         <tr class="toolbar_table_odd"> 
-                            <td class="toolbar_table_left"><span class="hljs-attribute">Duration</span></td>
-                            <td><span class="hljs-string"><?php echo Mage::helper('develop')->getScriptDuration(); ?> sec</span></td>
+                            <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute">Duration</span></td>
+                            <td><span class="toolbar_table_syntax-string"><?php echo Mage::helper('develop')->getScriptDuration(); ?> sec</span></td>
                         </tr>                      
                     </tbody>
                 </table>  
@@ -204,7 +204,7 @@ $timersTotal = count($timers);
         </div>
         <div id="tab_dashboard_2" class="tab_dashboard_content" style="display: none;">
             <h4 class="toolbar_paragraph">Installed Extensions</h4>   
-            <table class="toolbar_table">
+            <table class="toolbar_table toolbar_table_sortable">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -224,7 +224,7 @@ $timersTotal = count($timers);
                         <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">
                             <td><?php echo $row ?></td>
                             <td class="toolbar_table_left"><?php echo $name ?></td>
-                            <td><span class="<?php echo ($item['pool'] == 'community' ? 'hljs-attribute' : 'hljs-string'); ?>"><?php echo $item['pool'] ?></span></td>
+                            <td><span class="<?php echo ($item['pool'] == 'community' ? 'toolbar_table_syntax-attribute' : 'toolbar_table_syntax-string'); ?>"><?php echo $item['pool'] ?></span></td>
                             <td><?php echo $item['version'] ?></td>
                             <td><?php echo '<span class="' . $color . '">' . $item['enabled'] . '</span>' ?></td>
                             <td>
@@ -242,7 +242,7 @@ $timersTotal = count($timers);
         </div>  
         <div id="tab_dashboard_3" class="tab_dashboard_content" style="display: none;">
             <h4 class="toolbar_paragraph">PHP Information</h4>   
-            <table class="toolbar_table toolbar_table_wrap">
+            <table class="toolbar_table toolbar_table_wrap toolbar_table_sortable">
                 <col width="20%" />
                 <col width="80%" />
                 <thead>
@@ -266,8 +266,8 @@ $timersTotal = count($timers);
                             foreach ($item as $param => $value) {
                                 ?>
                                 <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>"> 
-                                    <td class="toolbar_table_left"><span class="hljs-attribute"><?php echo $param ?></span></td>
-                                    <td class="toolbar_table_left"><span class="hljs-string">
+                                    <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute"><?php echo $param ?></span></td>
+                                    <td class="toolbar_table_left"><span class="toolbar_table_syntax-string">
                                             <?php
                                             if (is_array($value)) {
                                                 foreach ($value as $k => $v) {
@@ -293,7 +293,7 @@ $timersTotal = count($timers);
             <?php
             if ($logEnabled) {
                 ?>
-                <table class="toolbar_table toolbar_table_wrap">
+                <table class="toolbar_table toolbar_table_wrap toolbar_table_sortable">
                     <col width="3%" />
                     <col width="97%" />
                     <thead>
@@ -311,8 +311,8 @@ $timersTotal = count($timers);
                             }
                             ?>
                             <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>"> 
-                                <td><span class="hljs-attribute"><?php echo $num; ?></span></td>
-                                <td class="toolbar_table_left"><span class="hljs-string">
+                                <td><span class="toolbar_table_syntax-attribute"><?php echo $num; ?></span></td>
+                                <td class="toolbar_table_left"><span class="toolbar_table_syntax-string">
                                         <?php
                                         echo htmlentities($line);
                                         ?>
@@ -338,7 +338,7 @@ $timersTotal = count($timers);
             <?php
             if ($logEnabled) {
                 ?>
-                <table class="toolbar_table toolbar_table_wrap">
+                <table class="toolbar_table toolbar_table_wrap toolbar_table_sortable">
                     <col width="3%" />
                     <col width="97%" />
                     <thead>
@@ -356,8 +356,8 @@ $timersTotal = count($timers);
                             }
                             ?>
                             <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>"> 
-                                <td><span class="hljs-attribute"><?php echo $num; ?></span></td>
-                                <td class="toolbar_table_left"><span class="hljs-string">
+                                <td><span class="toolbar_table_syntax-attribute"><?php echo $num; ?></span></td>
+                                <td class="toolbar_table_left"><span class="toolbar_table_syntax-string">
                                         <?php
                                         echo htmlentities($line);
                                         ?>
@@ -380,7 +380,7 @@ $timersTotal = count($timers);
         </div>  
         <div id="tab_dashboard_6" class="tab_dashboard_content" style="display: none;">
             <h4 class="toolbar_paragraph">Backtrace (<?php echo $backtraceTotal; ?> calls)</h4> 
-                <table class="toolbar_table toolbar_table_wrap">
+                <table class="toolbar_table toolbar_table_wrap toolbar_table_sortable">
                     <col width="3%" />
                     <col width="25%" />
                     <col width="25%" />
@@ -418,20 +418,20 @@ $timersTotal = count($timers);
                                 <td class="toolbar_table_left">
                                 <?php  
                                      if($line['object'] != ''){
-                                         echo '<span class="hljs-attribute">Object:</span> <span class="hljs-string">' . $line['object'] . '</span><br/>';
+                                         echo '<span class="toolbar_table_syntax-attribute">Object:</span> <span class="toolbar_table_syntax-string">' . $line['object'] . '</span><br/>';
                                      }
                                      if($line['class'] != ''){
-                                         echo '<span class="hljs-attribute">Class:</span> <span class="hljs-string">' . $line['class'] . '</span><br/>';
+                                         echo '<span class="toolbar_table_syntax-attribute">Class:</span> <span class="toolbar_table_syntax-string">' . $line['class'] . '</span><br/>';
                                      }
                                      if($line['function'] != ''){
-                                         echo '<span class="hljs-attribute">Function:</span> <span class="hljs-string">' . $line['function'] . '</span><br/>';
+                                         echo '<span class="toolbar_table_syntax-attribute">Function:</span> <span class="toolbar_table_syntax-string">' . $line['function'] . '</span><br/>';
                                      }
                                 ?>
                                 </td>
                                 <td class="toolbar_table_left">
                                 <?php 
                                    foreach($line['args'] as $k => $v){                                       
-                                       echo '<span class="hljs-attribute">' . $k . '</span> => <span class="hljs-string">' . $v . '</span><br/>';
+                                       echo '<span class="toolbar_table_syntax-attribute">' . $k . '</span> => <span class="toolbar_table_syntax-string">' . $v . '</span><br/>';
                                    } 
                                 ?>
                                 </td>
@@ -448,7 +448,7 @@ $timersTotal = count($timers);
         </div> 
         <div id="tab_dashboard_7" class="tab_dashboard_content" style="display: none;">
             <h4 class="toolbar_paragraph">Code Profiler (<?php echo $timersTotal; ?> profiled items)</h4> 
-                <table class="toolbar_table toolbar_table_wrap">
+                <table class="toolbar_table toolbar_table_wrap toolbar_table_sortable">
                     <col width="3%" />
                     <col width="55%" />
                     <col width="7%" />
@@ -482,12 +482,12 @@ $timersTotal = count($timers);
                                 <?php echo $line['count']; ?>
                                 </td>
                                 <td>
-                                    <span class="hljs-attribute">
+                                    <span class="toolbar_table_syntax-attribute">
                                     <?php echo $line['realmem']; ?>
                                     </span>
                                 </td>
                                 <td>
-                                    <span class="hljs-string">
+                                    <span class="toolbar_table_syntax-string">
                                     <?php echo $line['emalloc']; ?>
                                     </span>
                                 </td>

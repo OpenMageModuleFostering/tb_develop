@@ -356,9 +356,9 @@ class TB_Develop_Helper_Data extends Mage_Core_Helper_Abstract {
                     $type_description = 'function';
                 }
                 if (isset($item['class']) && isset($item['function'])) {
-                    $method_name = sprintf('<span class="hljs-attribute">%s</span>%s<span class="hljs-string">%s</span>(%s)', $class, isset($item['type']) ? $item['type'] : '->', $item['function'], join(', ', $args));
+                    $method_name = sprintf('<span class="toolbar_table_syntax-attribute">%s</span>%s<span class="toolbar_table_syntax-string">%s</span>(%s)', $class, isset($item['type']) ? $item['type'] : '->', $item['function'], join(', ', $args));
                 } else if (isset($item['function'])) {
-                    $method_name = sprintf('<span class="hljs-attribute">%s</span>(%s)', $item['function'], join(', ', $args));
+                    $method_name = sprintf('<span class="toolbar_table_syntax-attribute">%s</span>(%s)', $item['function'], join(', ', $args));
                 } else{
                     $method_name = '';
                 }

@@ -11,7 +11,7 @@
 }
 #develop_toolbar {
     position: relative;
-    z-index: 999 !important;    
+    z-index: 9999 !important;    
     margin: 0;
     padding: 0;
     background: #EEEEEE;
@@ -21,7 +21,7 @@
 }
 #develop_toolbar_line { 
     position:relative;
-    z-index: 1000 !important;
+    z-index: 9999 !important;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAGCAYAAABuFqY0AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gkUDhcnnJxpsQAAAEJJREFUOMtj/L+L4T8DEUAiVpyBVPBi8UuS1JNjB7I9TMPFI0R5Zqh4hKBnhpJH8HpmqHmEgYGBgXHt2rX/GYYJAACnKiPJuhu+OgAAAABJRU5ErkJggg==) repeat-x left top;
     width: 100%;
     height: 6px;
@@ -410,60 +410,91 @@ table.toolbar_table tbody tr td.toolbar_table_left{
     text-decoration: none;
     text-shadow: 0 0 3px #FFBA00;   
 }
-.hljs {
+.toolbar_table_syntax {
     display: block;
     color: #333333;
     -webkit-text-size-adjust: none;
 }
-.hljs-comment, .hljs-template_comment, .diff .hljs-header, .hljs-javadoc {
+.toolbar_table_syntax-comment, .toolbar_table_syntax-template_comment, .diff .toolbar_table_syntax-header, .toolbar_table_syntax-javadoc {
     color: #999988;
     font-style: italic;
 }
-.hljs-keyword, .css .rule .hljs-keyword, .hljs-winutils, .javascript .hljs-title, .nginx .hljs-title, .hljs-subst, .hljs-request, .hljs-status {
+.toolbar_table_syntax-keyword, .css .rule .toolbar_table_syntax-keyword, .toolbar_table_syntax-winutils, .javascript .toolbar_table_syntax-title, .nginx .toolbar_table_syntax-title, .toolbar_table_syntax-subst, .toolbar_table_syntax-request, .toolbar_table_syntax-status {
     color: #008080;
     font-weight: bold;
 }
-.hljs-number, .hljs-hexcolor, .ruby .hljs-constant {
+.toolbar_table_syntax-number, .toolbar_table_syntax-hexcolor, .ruby .toolbar_table_syntax-constant {
     color: #008080;
 }
-.hljs-string, .hljs-tag .hljs-value, .hljs-phpdoc, .hljs-dartdoc, .tex .hljs-formula {
+.toolbar_table_syntax-string, .toolbar_table_syntax-tag .toolbar_table_syntax-value, .toolbar_table_syntax-phpdoc, .toolbar_table_syntax-dartdoc, .tex .toolbar_table_syntax-formula {
     color: #800080;
 }
-.hljs-title, .hljs-id, .scss .hljs-preprocessor {
+.toolbar_table_syntax-title, .toolbar_table_syntax-id, .scss .toolbar_table_syntax-preprocessor {
     color: #990000;
     font-weight: bold;
 }
-.javascript .hljs-title, .hljs-list .hljs-keyword, .hljs-subst {
+.javascript .toolbar_table_syntax-title, .toolbar_table_syntax-list .toolbar_table_syntax-keyword, .toolbar_table_syntax-subst {
     font-weight: normal;
 }
-.hljs-class .hljs-title, .hljs-type, .vhdl .hljs-literal, .tex .hljs-command {
+.toolbar_table_syntax-class .toolbar_table_syntax-title, .toolbar_table_syntax-type, .vhdl .toolbar_table_syntax-literal, .tex .toolbar_table_syntax-command {
     color: #445588;
     font-weight: bold;
 }
-.hljs-tag, .hljs-tag .hljs-title, .hljs-rules .hljs-property, .django .hljs-tag .hljs-keyword {
+.toolbar_table_syntax-tag, .toolbar_table_syntax-tag .toolbar_table_syntax-title, .toolbar_table_syntax-rules .toolbar_table_syntax-property, .django .toolbar_table_syntax-tag .toolbar_table_syntax-keyword {
     color: #000080;
     font-weight: normal;
 }
-.hljs-attribute, .hljs-variable, .lisp .hljs-body {
+.toolbar_table_syntax-attribute, .toolbar_table_syntax-variable, .lisp .toolbar_table_syntax-body {
     color: #008080;
 }
-.hljs-regexp {
+.toolbar_table_syntax-regexp {
     color: #009926;
 }
-.hljs-symbol, .ruby .hljs-symbol .hljs-string, .lisp .hljs-keyword, .clojure .hljs-keyword, .scheme .hljs-keyword, .tex .hljs-special, .hljs-prompt {
+.toolbar_table_syntax-symbol, .ruby .toolbar_table_syntax-symbol .toolbar_table_syntax-string, .lisp .toolbar_table_syntax-keyword, .clojure .toolbar_table_syntax-keyword, .scheme .toolbar_table_syntax-keyword, .tex .toolbar_table_syntax-special, .toolbar_table_syntax-prompt {
     color: #990073;
 }
-.hljs-built_in {
+.toolbar_table_syntax-built_in {
     color: #0086b3;
 }
-.hljs-preprocessor, .hljs-pragma, .hljs-pi, .hljs-doctype, .hljs-shebang, .hljs-cdata {
+.toolbar_table_syntax-preprocessor, .toolbar_table_syntax-pragma, .toolbar_table_syntax-pi, .toolbar_table_syntax-doctype, .toolbar_table_syntax-shebang, .toolbar_table_syntax-cdata {
     color: #999999;
     font-weight: bold;
 }
-.hljs-chunk {
+.toolbar_table_syntax-chunk {
     color: #AAAAAA;
 }
 .header-top{
     position: relative;
     z-index: 1; 
+}
+table.toolbar_table_sortable th {
+    cursor: pointer;
+}
+table.toolbar_table_sortable th:hover {
+    color:#FFFFFF;
+}
+table.toolbar_table_sortable th.toolbar_table_sort_asc {
+    cursor: pointer;
+    padding-right: 20px;
+    color: #FFBA00;
+    background-color: #303030;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAICAYAAAAm06XyAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wUcEzoqHeFpiwAAAClJREFUGNNjYBg04P8uhv/EqmXEpZHRDVUOr2ZsNhIygJGQU4lxAf0BANyqC7xVxdKmAAAAAElFTkSuQmCC);
+}
+table.toolbar_table_sortable th.toolbar_table_sort_desc {
+    cursor: pointer;
+    padding-right: 20px;
+    color: #FFBA00;
+    background-color: #303030;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAICAYAAAAm06XyAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wUcEzouGoytkgAAAC5JREFUGNNjYBgowMjAwMDwfxfDf5wK3CBqcGrGZQA+jSia0Q0gpBErwOeFwQMAEOgLvFTuTEMAAAAASUVORK5CYII=);
+}
+hr.toolbar_hr {
+    color: #555555;
+    background-color: #555555; 
+    border-width: 0px;
+    height: 1px; 
+    margin-bottom: 10px;
 }

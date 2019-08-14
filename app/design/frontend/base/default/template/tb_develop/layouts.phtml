@@ -12,7 +12,7 @@ $layoutHandles = Mage::helper('develop')->getLayouts();
         <div id="tab_layouts_1" class="tab_layouts_content">
             <p>
             <h4 class="toolbar_paragraph">Layout Updates (<?php echo $totalHandles . " handles"; ?>)</h4>   
-            <table class="toolbar_table toolbar_table_wrap">
+            <table class="toolbar_table toolbar_table_wrap toolbar_table_sortable">
                 <col width="3%" />
                 <col width="15%" />
                 <col width="82%" />
@@ -30,14 +30,11 @@ $layoutHandles = Mage::helper('develop')->getLayouts();
                             foreach ($data as $key => $item) {
                                 ?>
                                 <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">                   
-                                    <td rowspan="2"><?php echo $row ?></td>        
-                                    <td rowspan="2"><?php echo $handle ?></td>            
+                                    <td><?php echo $row ?></td>        
+                                    <td><?php echo $handle ?></td>            
                                     <td class="toolbar_table_left">
-                                        <strong>File:</strong> <?php echo $item['file'] ?>                               
-                                    </td>
-                                </tr>
-                                <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">          
-                                    <td class="toolbar_table_left">
+                                        <strong>File:</strong> <?php echo $item['file'] ?>  
+                                        <hr class="toolbar_hr" />
                                         <div>
                                             <pre><?php
                                                 $xml = Mage::helper('develop')->formatXmlString(trim($item['content']), true);
@@ -45,7 +42,7 @@ $layoutHandles = Mage::helper('develop')->getLayouts();
                                                 ?></pre>
                                         </div> 
                                     </td>
-                                </tr>    
+                                </tr>   
                                 <?php
                                 $row++;
                             }

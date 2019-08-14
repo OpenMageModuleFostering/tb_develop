@@ -27,7 +27,7 @@ $jobsTotal = count($jobs);
     <div class="tab_models">
         <div id="tab_models_1" class="tab_models_content">               
             <h4 class="toolbar_paragraph">Models List (<?php echo $totalModels . " items"; ?>)</h4>
-            <table class="toolbar_table">
+            <table class="toolbar_table toolbar_table_sortable">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -43,8 +43,8 @@ $jobsTotal = count($jobs);
                         ?>
                         <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">
                             <td><?php echo $row; ?></td>
-                            <td class="toolbar_table_left"><span class="hljs-attribute"><?php echo $model['resource_name'] ?></span></td>
-                            <td class="toolbar_table_left"><span class="hljs-string"><?php echo $model['class'] ?></span></td>
+                            <td class="toolbar_table_left"><span class="toolbar_table_syntax-attribute"><?php echo $model['resource_name'] ?></span></td>
+                            <td class="toolbar_table_left"><span class="toolbar_table_syntax-string"><?php echo $model['class'] ?></span></td>
                             <td><?php echo $model['calls'] ?></td>
                         </tr>
                         <?php
@@ -56,7 +56,7 @@ $jobsTotal = count($jobs);
         </div>
         <div id="tab_models_2" class="tab_models_content" style="display: none;">
             <h4 class="toolbar_paragraph">Collections List (<?php echo $totalCollections . " items"; ?>)</h4>
-            <table class="toolbar_table toolbar_table_wrap">
+            <table class="toolbar_table toolbar_table_wrap toolbar_table_sortable">
                 <col width="3%" />
                 <col width="5%" />
                 <col width="25%" />
@@ -79,7 +79,7 @@ $jobsTotal = count($jobs);
                         ?>
                         <tr class="<?php echo $row % 2 ? 'toolbar_table_odd' : 'toolbar_table_even' ?>">
                             <td><?php echo $row; ?></td>
-                            <td><span class="<?php echo ($collection['type'] == 'mysql' ? 'hljs-attribute' : 'hljs-string'); ?>"><?php echo $collection['type'] ?><span></td>
+                            <td><span class="<?php echo ($collection['type'] == 'mysql' ? 'toolbar_table_syntax-attribute' : 'toolbar_table_syntax-string'); ?>"><?php echo $collection['type'] ?><span></td>
                             <td class="toolbar_table_left"><?php echo $collection['class'] ?></td>
                             <td class="toolbar_table_left">
                                 <div class="toolbar_table_syntax sql">
@@ -101,7 +101,7 @@ $jobsTotal = count($jobs);
         </div> 
         <div id="tab_models_3" class="tab_models_content"  style="display: none;">
                 <h4 class="toolbar_paragraph">Observers (<?php echo $totalEvents  . " items"; ?>)</h4>
-                <table class="toolbar_table toolbar_table_wrap">
+                <table class="toolbar_table toolbar_table_wrap toolbar_table_sortable">
                     <col width="3%" />
                     <col width="25%" />
                     <col width="5%" />
@@ -135,14 +135,14 @@ $jobsTotal = count($jobs);
                                 <td>
                                     <?php echo $event['scope']; ?>
                                 </td>
-                                <td>	
+                                <td>    
                                     <?php echo $event['key']; ?>                    
-                                </td>                                				                                
+                                </td>                                                                               
                                 <td class="toolbar_table_left">
-                                    <span class="hljs-attribute"><?php echo $event['class']; ?></span>
+                                    <span class="toolbar_table_syntax-attribute"><?php echo $event['class']; ?></span>
                                 </td>
                                 <td class="toolbar_table_left">
-                                   <span class="hljs-string"><?php echo $event['method']; ?></span>
+                                   <span class="toolbar_table_syntax-string"><?php echo $event['method']; ?></span>
                                 </td>
                                 <td>
                                    <?php echo $event['type']; ?>
@@ -160,7 +160,7 @@ $jobsTotal = count($jobs);
             if ($queries) {
                 ?>
                 <h4 class="toolbar_paragraph">Query List (<?php echo $totalQueries . " queries at " . $totalTime . " sec"; ?>)</h4>
-                <table class="toolbar_table toolbar_table_wrap">
+                <table class="toolbar_table toolbar_table_wrap toolbar_table_sortable">
                     <col width="3%" />
                     <col width="5%" />
                     <col width="85%" />
@@ -184,8 +184,8 @@ $jobsTotal = count($jobs);
                                 </td>
                                 <td>
                                     <?php echo sprintf("%.4f", $query->getElapsedSecs()) ?>&nbsp;s
-                                </td>				
-                                <td class="toolbar_table_left">	
+                                </td>               
+                                <td class="toolbar_table_left"> 
                                     <div class="toolbar_table_syntax sql"><?php echo trim($query->getQuery()); ?></div>                    
                                     <?php if (count($query->getQueryParams())) { ?>
                                         <strong>Params: </strong><?php echo implode(', ', $query->getQueryParams()); ?>
@@ -205,13 +205,13 @@ $jobsTotal = count($jobs);
                 </table>  
             <?php } else { ?>
                 Zend SQL Profiler is not enabled in Magento settings. Activate the Zend SQL Profiler by adding 
-                <span class="hljs-string"><code>&lt;profiler>1&lt;/profiler></code></span> node inside <span class="hljs-string"><code>&lt;connection></code></span> 
-                node in your <span class="hljs-attribute">app/etc/local.xml</span> file.             
+                <span class="toolbar_table_syntax-string"><code>&lt;profiler>1&lt;/profiler></code></span> node inside <span class="toolbar_table_syntax-string"><code>&lt;connection></code></span> 
+                node in your <span class="toolbar_table_syntax-attribute">app/etc/local.xml</span> file.             
             <?php } ?> 
         </div>
         <div id="tab_models_5" class="tab_models_content"  style="display: none;">
             <h4 class="toolbar_paragraph">Cron Jobs (<?php echo $jobsTotal; ?> items)</h4>
-            <table class="toolbar_table toolbar_table_wrap">
+            <table class="toolbar_table toolbar_table_wrap toolbar_table_sortable">
                 <col width="3%" />
                 <col width="30%" />
                 <col width="60%" />
@@ -235,19 +235,19 @@ $jobsTotal = count($jobs);
                             </td>
                             <td class="toolbar_table_left">
                                 <?php echo $job['code']; ?>
-                            </td>				
-                            <td class="toolbar_table_left">	
+                            </td>               
+                            <td class="toolbar_table_left"> 
                                 <?php 
                                 $parts = $job['parts'];
                                 if(count($parts) == 2){
-                                   echo '<span class="hljs-attribute">' . $parts[0] . '</span>' . $job['sign'] . '<span class="hljs-string">' . $parts[1] . '()</span>';
+                                   echo '<span class="toolbar_table_syntax-attribute">' . $parts[0] . '</span>' . $job['sign'] . '<span class="toolbar_table_syntax-string">' . $parts[1] . '()</span>';
                                 }else{
                                    echo $job['model'];
                                 }
                                 ?>                   
                             </td>
                             <td>
-                               <span class="hljs-string"><?php echo $job['expr']; ?></span>
+                               <span class="toolbar_table_syntax-string"><?php echo $job['expr']; ?></span>
                             </td>                                
                         </tr>
                         <?php
