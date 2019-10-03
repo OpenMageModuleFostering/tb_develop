@@ -1,7 +1,7 @@
 {
-    "name": "OpenMageModuleFostering\/tb_develop",
+    "name": "openmage-module-fostering\/tb_develop",
     "type": "magento-module",
-    "license": "Open-Software-License-(OSL-3.0)",
+    "license": "OSL-3.0",
     "homepage": "",
     "description": "TB Developer Toolbar created by developer for developers.",
     "authors": [
