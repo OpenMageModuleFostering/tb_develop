@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/tb_develop",
+    "name": "OpenMageModuleFostering\/tb_develop",
     "type": "magento-module",
     "license": "Open-Software-License-(OSL-3.0)",
     "homepage": "",
     "description": "TB Developer Toolbar created by developer for developers.",
     "authors": [
-    {
-        "name": "ToxaBes",
-        "email": "toxabes@gmail.com"
-    }
-],
+        {
+            "name": "ToxaBes",
+            "email": "toxabes@gmail.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
